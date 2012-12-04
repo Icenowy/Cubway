@@ -72,3 +72,6 @@ HEADERS  += metro.h \
     lua/lauxlib.h \
     lua/lapi.h \
     lua/lzio.h
+
+OTHER_FILES += \
+    libmetro.lua
