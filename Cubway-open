@@ -1,0 +1,8 @@
+#!/bin/bash
+[ -r /etc/Cubwayrc ] && a="$(cat /etc/Cubwayrc)"
+[ -r $HOME/.Cubwayrc ] && a=$a"$(cat $HOME/.Cubwayrc)"
+
+for b in $a
+do
+[ "$(echo $b|sed 's/:.*//g')" = "$@" ] && exec "$(echo $b|sed 's/.*://g')"
+done
