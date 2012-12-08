@@ -11,7 +11,7 @@ Metro::Metro(QWidget *parent)
 {
     setWindowFlags(Qt::FramelessWindowHint);
     if(QApplication::arguments().length() <= 1)
-        load(QUrl("http://metro-subway.rhcloud.com/MT.php"));
+        load(QUrl("https://metro-subway.rhcloud.com/MT.php"));
     else
         load(QUrl(QApplication::arguments()[1]));
     showFullScreen();
