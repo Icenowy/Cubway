@@ -3,13 +3,14 @@
 #include <QtGui/QDialog>
 #include <QtGui/QMessageBox>
 #include <QtCore/QProcess>
+#include <QtGui/QKeyEvent>
 #include "lua/lua.hpp"
 
 
 Metro::Metro(QWidget *parent)
     : QWebView(parent)
 {
-    setWindowFlags(Qt::FramelessWindowHint);
+    setWindowFlags(Qt::WindowStaysOnBottomHint | Qt::FramelessWindowHint);
     if(QApplication::arguments().length() <= 1)
         load(QUrl("https://metro-subway.rhcloud.com/MT.php"));
     else
@@ -52,4 +53,22 @@ void Metro::RunLuaString(QString str)
 {
     luaL_loadstring(lua,str.toAscii());
     lua_pcall(lua,0,LUA_MULTRET,0);
+}
+
+void Metro::keyPressEvent(QKeyEvent *ke)
+{
+    //if(ke->key() == Qt::Key_Super_L || ke->key() == Qt::Key_Super_R)
+    //if(ke->key() == Qt::Key_Alt)
+    {
+
+    }
+    //else
+    {
+        QWebView::keyPressEvent(ke);
+    }
+}
+
+void Metro::Hide()
+{
+    hide();
 }
