@@ -10,6 +10,7 @@
 Metro::Metro(QWidget *parent)
     : QWebView(parent)
 {
+    QWebSettings::globalSettings()->setAttribute(QWebSettings::DeveloperExtrasEnabled, true);
     setWindowFlags(Qt::WindowStaysOnBottomHint | Qt::FramelessWindowHint);
     if(QApplication::arguments().length() <= 1)
         load(QUrl("https://metro-subway.rhcloud.com/MT.php"));
@@ -18,13 +19,10 @@ Metro::Metro(QWidget *parent)
     showFullScreen();
     connect(page()->mainFrame(), SIGNAL(javaScriptWindowObjectCleared()),
             this, SLOT(javaScriptWindowObjectCleared()));
-    lua = luaL_newstate();
-	RunLua("libmetro.lua");
 }
 
 Metro::~Metro()
 {
-    lua_close(lua);
 }
 
 void Metro::javaScriptWindowObjectCleared()
@@ -41,18 +39,6 @@ void Metro::System(QString str)
 {
     QProcess *qp = new QProcess;
     qp->start(str);
-}
-
-void Metro::RunLua(QString str)
-{
-    luaL_loadfile(lua,str.toAscii());
-    lua_pcall(lua,0,LUA_MULTRET,0);
-}
-
-void Metro::RunLuaString(QString str)
-{
-    luaL_loadstring(lua,str.toAscii());
-    lua_pcall(lua,0,LUA_MULTRET,0);
 }
 
 void Metro::keyPressEvent(QKeyEvent *ke)
