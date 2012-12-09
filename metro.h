@@ -13,8 +13,10 @@ class Metro : public QWebView
 public:
     Metro(QWidget *parent = 0);
     ~Metro();
+    void loadFile(const QString &fileName);
 protected:
     void keyPressEvent(QKeyEvent *ke);
+    QString adjustPath(const QString &path);
 public slots:
     void javaScriptWindowObjectCleared();
     void QtAlert(QString str);

@@ -17,4 +17,4 @@ SOURCES += main.cpp\
 HEADERS  += metro.h \
 
 OTHER_FILES += \
-    libmetro.lua
+    html
