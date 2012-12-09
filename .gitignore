@@ -9,6 +9,7 @@
 *.so
 *.dll
 *.dylib
+QtMetro
 
 # Qt-es
 
@@ -18,3 +19,4 @@ moc_*.cpp
 qrc_*.cpp
 Makefile
 *-build-*
+qtc_packaging
