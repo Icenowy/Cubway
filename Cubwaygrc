@@ -1,4 +1,5 @@
 SERVER="http://127.0.0.1/Subway"
-LTR="1"
-LTD="5"
-ETH="eth0"#监测流量的连接
+LTR=""
+LTD=""
+ETH="eth0"
+#监测流量的连接
