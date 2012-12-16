@@ -1,4 +1,4 @@
 #! /bin/bash
-cp Cubwayrc Cubwaygrc /etc
-cp Cubway-open Cubway-get /usr/bin
-cp QtMetro /usr/bin
+cp -vp Cubwayrc Cubwaygrc /etc
+cp -vp Cubway-open Cubway-get /usr/bin
+cp -vp QtMetro /usr/bin

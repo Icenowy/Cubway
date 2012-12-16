@@ -7,4 +7,5 @@ if [ -f ~/.Cubwaygrc ]
 then
 . ~/.Cubwaygrc
 fi
-exec QtMetro $SERVER/MT.php?distro_pic=$DISTRO&ltr=$LTR&ltd=$LTD
+c="$SERVER/MT.php?distro_pic=$DISTRO&ltr=$LTR&ltd=$LTD&eth=$ETH"
+exec QtMetro "$c"
