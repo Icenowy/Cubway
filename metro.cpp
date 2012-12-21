@@ -10,7 +10,8 @@
 Metro::Metro(QWidget *parent)
     : QWebView(parent)
 {
-	QWebSettings* defaultSettings = QWebSettings::globalSettings();  
+	
+    QWebSettings* defaultSettings = QWebSettings::globalSettings();  
     // We use JavaScript, so set it to be enabled.  
     defaultSettings->setAttribute(QWebSettings::JavascriptEnabled, true);  
     // Plug-ins must be set to be enabled to use plug-ins.  
