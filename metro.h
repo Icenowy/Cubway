@@ -2,6 +2,7 @@
 #define METRO_H
 
 #include <QtGui/QWidget>
+#include <QtWebKit/QWebSettings>
 #include <QtWebKit/QWebFrame>
 #include <QtWebKit/QWebElement>
 #include <QtWebKit/QWebView>
