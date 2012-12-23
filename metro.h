@@ -20,7 +20,6 @@ protected:
     void keyPressEvent(QKeyEvent *ke);
 public slots:
     void javaScriptWindowObjectCleared();
-    void QtAlert(QString str);
     void System(QString str);
     void RunLua(QString str);
     void RunLuaString(QString str);

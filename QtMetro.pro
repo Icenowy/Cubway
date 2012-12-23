@@ -44,7 +44,8 @@ SOURCES += main.cpp\
     lua/lbaselib.c \
     lua/lauxlib.c \
     lua/lapi.c \
-    lua/lzio.c
+    lua/lzio.c \
+    lmetrolib.cpp
 
 HEADERS  += metro.h \
     lua/lvm.h \
@@ -71,7 +72,8 @@ HEADERS  += metro.h \
     lua/lcode.h \
     lua/lauxlib.h \
     lua/lapi.h \
-    lua/lzio.h
+    lua/lzio.h \
+    lmetrolib.h
 
 OTHER_FILES += \
     libmetro.lua

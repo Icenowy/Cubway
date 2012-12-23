@@ -1,0 +1,2 @@
+metro.system("lxterminal")
+

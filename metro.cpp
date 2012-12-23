@@ -5,6 +5,7 @@
 #include <QtCore/QProcess>
 #include <QtGui/QKeyEvent>
 #include "lua/lua.hpp"
+#include "lmetrolib.h"
 
 
 Metro::Metro(QWidget *parent)
@@ -27,6 +28,7 @@ Metro::Metro(QWidget *parent)
     connect(page()->mainFrame(), SIGNAL(javaScriptWindowObjectCleared()),
             this, SLOT(javaScriptWindowObjectCleared()));
     lua = luaL_newstate();
+    luaL_openmetrolib(lua);
 	RunLua("libmetro.lua");
 }
 
@@ -38,11 +40,6 @@ Metro::~Metro()
 void Metro::javaScriptWindowObjectCleared()
 {
     page()->mainFrame()->addToJavaScriptWindowObject("MetroView", this);
-}
-
-void Metro::QtAlert(QString str)
-{
-    QMessageBox::information(this,"QtAlert",str);
 }
 
 void Metro::System(QString str)
