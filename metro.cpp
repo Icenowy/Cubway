@@ -10,6 +10,14 @@
 Metro::Metro(QWidget *parent)
     : QWebView(parent)
 {
+    QWebSettings* defaultSettings = QWebSettings::globalSettings();  
+    QWebSettings::enablePersistentStorage("");  
+    defaultSettings->setAttribute(QWebSettings::JavascriptEnabled, true);  
+    // Plug-ins must be set to be enabled to use plug-ins.  
+    defaultSettings->setAttribute(QWebSettings::PluginsEnabled,true);  
+    defaultSettings->setAttribute(QWebSettings::LocalContentCanAccessRemoteUrls,true);  
+    defaultSettings->setObjectCacheCapacities(0, 0, 0); 
+
     setWindowFlags(Qt::WindowStaysOnBottomHint | Qt::FramelessWindowHint);
     if(QApplication::arguments().length() <= 1)
         load(QUrl("https://metro-subway.rhcloud.com/MT.php"));
