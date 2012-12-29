@@ -15,6 +15,7 @@ class Metro : public QWebView
 public:
     Metro(QWidget *parent = 0);
     ~Metro();
+    static Metro *Mainview;
 protected:
     lua_State *lua;
     void keyPressEvent(QKeyEvent *ke);

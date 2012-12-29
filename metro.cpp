@@ -20,21 +20,23 @@ Metro::Metro(QWidget *parent)
     defaultSettings->setObjectCacheCapacities(0, 0, 0); 
 
     setWindowFlags(Qt::WindowStaysOnBottomHint | Qt::FramelessWindowHint);
-    if(QApplication::arguments().length() <= 1)
+/*    if(QApplication::arguments().length() <= 1)
         load(QUrl("https://metro-subway.rhcloud.com/MT.php"));
     else
-        load(QUrl(QApplication::arguments()[1]));
+        load(QUrl(QApplication::arguments()[1]));*/
     showFullScreen();
     connect(page()->mainFrame(), SIGNAL(javaScriptWindowObjectCleared()),
             this, SLOT(javaScriptWindowObjectCleared()));
     lua = luaL_newstate();
     luaL_openmetrolib(lua);
-	RunLua("libmetro.lua");
+    Mainview = this;
+    RunLua("libmetro.lua");
 }
-
+Metro* Metro::Mainview = NULL;
 Metro::~Metro()
 {
     lua_close(lua);
+    Mainview = NULL;
 }
 
 void Metro::javaScriptWindowObjectCleared()
