@@ -21,7 +21,9 @@ protected:
     void keyPressEvent(QKeyEvent *ke);
 public slots:
     void javaScriptWindowObjectCleared();
-    void System(QString str);
+    void QtAlert(QString str);
+    QString System(QString str);
+    QString OpenFile();
     void RunLua(QString str);
     void RunLuaString(QString str);
     void Hide();

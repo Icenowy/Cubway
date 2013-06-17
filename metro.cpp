@@ -1,6 +1,7 @@
 #include "metro.h"
 #include <QtGui/QApplication>
 #include <QtGui/QDialog>
+#include <QtGui/QFileDialog>
 #include <QtGui/QMessageBox>
 #include <QtCore/QProcess>
 #include <QtGui/QKeyEvent>
@@ -20,10 +21,10 @@ Metro::Metro(QWidget *parent)
     defaultSettings->setObjectCacheCapacities(0, 0, 0); 
 
     setWindowFlags(Qt::WindowStaysOnBottomHint | Qt::FramelessWindowHint);
-/*    if(QApplication::arguments().length() <= 1)
-        load(QUrl("https://metro-subway.rhcloud.com/MT.php"));
+    if(QApplication::arguments().length() <= 1)
+        load(QUrl("http://erhandsome.org/php/files/h5lvp_subway.html"));
     else
-        load(QUrl(QApplication::arguments()[1]));*/
+        load(QUrl(QApplication::arguments()[1]));
     showFullScreen();
     connect(page()->mainFrame(), SIGNAL(javaScriptWindowObjectCleared()),
             this, SLOT(javaScriptWindowObjectCleared()));
@@ -44,11 +45,28 @@ void Metro::javaScriptWindowObjectCleared()
     page()->mainFrame()->addToJavaScriptWindowObject("MetroView", this);
 }
 
-void Metro::System(QString str)
+QString Metro::System(QString str)
 {
     QProcess *qp = new QProcess;
     qp->start(str);
+    if (!qp->waitForStarted())
+      return "1";
+    if (!qp->waitForFinished())
+      return "2";
+    QByteArray result = qp->readAll();
+    return QString(result);
 }
+
+QString Metro::OpenFile()
+{
+    return QFileDialog::getOpenFileName(this,tr("Open File"));
+}
+
+void Metro::QtAlert(QString str)
+{
+    QMessageBox::information(this,"QtAlert",str);
+}
+
 
 void Metro::RunLua(QString str)
 {
