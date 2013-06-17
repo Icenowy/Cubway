@@ -20,12 +20,12 @@ Metro::Metro(QWidget *parent)
     defaultSettings->setAttribute(QWebSettings::LocalContentCanAccessRemoteUrls,true);  
     defaultSettings->setObjectCacheCapacities(0, 0, 0); 
 
-    setWindowFlags(Qt::WindowStaysOnBottomHint | Qt::FramelessWindowHint);
+//    setWindowFlags(Qt::WindowStaysOnBottomHint | Qt::FramelessWindowHint);
     if(QApplication::arguments().length() <= 1)
         load(QUrl("http://erhandsome.org/php/files/h5lvp_subway.html"));
     else
         load(QUrl(QApplication::arguments()[1]));
-    showFullScreen();
+//    showFullScreen();
     connect(page()->mainFrame(), SIGNAL(javaScriptWindowObjectCleared()),
             this, SLOT(javaScriptWindowObjectCleared()));
     lua = luaL_newstate();
