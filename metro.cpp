@@ -20,7 +20,7 @@ Metro::Metro(QWidget *parent)
     defaultSettings->setAttribute(QWebSettings::PluginsEnabled,true);  
     defaultSettings->setAttribute(QWebSettings::LocalContentCanAccessRemoteUrls,true);  
     defaultSettings->setObjectCacheCapacities(0, 0, 0); 
-
+    setWindowTitle("QtMetro - Cubway");
 //    setWindowFlags(Qt::WindowStaysOnBottomHint | Qt::FramelessWindowHint);
     if(QApplication::arguments().length() <= 1)
         load(QUrl("http://erhandsome.org/php/files/h5lvp_subway.html"));
@@ -70,6 +70,11 @@ QString Metro::GetColor()
     int g = color.green();
     int b = color.blue();
     return "rgb("+QString::number(r)+","+QString::number(g)+","+QString::number(b)+")";
+}
+
+void Metro::WinTitle(QString title)
+{
+    Mainview->setWindowTitle(title);
 }
 
 void Metro::QtAlert(QString str)
