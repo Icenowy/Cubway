@@ -2,6 +2,7 @@
 #include <QtGui/QApplication>
 #include <QtGui/QDialog>
 #include <QtGui/QFileDialog>
+#include <QtGui/QColorDialog>
 #include <QtGui/QMessageBox>
 #include <QtCore/QProcess>
 #include <QtGui/QKeyEvent>
@@ -60,6 +61,15 @@ QString Metro::System(QString str)
 QString Metro::OpenFile()
 {
     return QFileDialog::getOpenFileName(this,tr("Open File"));
+}
+
+QString Metro::GetColor()
+{
+    QColor color = QColorDialog::getColor();
+    int r = color.red();
+    int g = color.green();
+    int b = color.blue();
+    return "rgb("+QString::number(r)+","+QString::number(g)+","+QString::number(b)+")";
 }
 
 void Metro::QtAlert(QString str)
