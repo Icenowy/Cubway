@@ -1,5 +1,6 @@
 #include "metro.h"
 #include <QtGui/QApplication>
+#include <QDesktopWidget>
 #include <QtGui/QDialog>
 #include <QtGui/QFileDialog>
 #include <QtGui/QColorDialog>
@@ -36,6 +37,7 @@ Metro::Metro(QWidget *parent)
     RunLua("libmetro.lua");
 }
 Metro* Metro::Mainview = NULL;
+
 Metro::~Metro()
 {
     lua_close(lua);
@@ -105,6 +107,49 @@ QString Metro::GetFont(QString family,int size,QString weight,QString style)
 void Metro::WinTitle(QString title)
 {
     Mainview->setWindowTitle(title);
+}
+
+void Metro::WinResize(int w,int h)
+{
+    Mainview->resize(w,h);
+}
+
+void Metro::WinPos(int x,int y)
+{
+    QDesktopWidget* desktop = QApplication::desktop();
+    if(x==-1&&y==-1){
+    Mainview->move((desktop->width() - this->width())/2, (desktop->height() - this->height())/2);
+    }else{
+    Mainview->move(x,y);
+    }
+}
+/*
+void Metro::WinFlag(QString flag)
+{
+    if(flag=="below") Mainview->setWindowFlags(Qt::WindowStaysOnBottomHint);
+    else if(flag=="above") Mainview->setWindowFlags(Qt::WindowStaysOnTopHint);
+    else Mainview->setWindowFlags(Qt::Window);
+}
+*/
+
+void Metro::WinFullScreen()
+{
+    Mainview->showFullScreen();
+}
+
+void Metro::WinMaximize()
+{
+    Mainview->showMaximized();
+}
+
+void Metro::WinMinimize()
+{
+    Mainview->showMinimized();
+}
+
+void Metro::WinNormal()
+{
+    Mainview->showNormal();
 }
 
 void Metro::QtAlert(QString str)

@@ -1,6 +1,7 @@
 #ifndef METRO_H
 #define METRO_H
 
+#include <iostream>
 #include <QtGui/QWidget>
 #include <QtWebKit/QWebSettings>
 #include <QtWebKit/QWebFrame>
@@ -8,6 +9,7 @@
 #include <QtWebKit/QWebView>
 #include <QtGui/QKeyEvent>
 #include "lua/lua.hpp"
+using namespace std;
 
 class Metro : public QWebView
 {
@@ -27,6 +29,13 @@ public slots:
     QString GetColor();
     QString GetFont(QString family,int size,QString weight,QString style);
     void WinTitle(QString title);
+    void WinResize(int w,int h);
+    void WinPos(int x,int y);
+//    void WinFlag(QString flag);
+    void WinFullScreen();
+    void WinMaximize();
+    void WinMinimize();
+    void WinNormal();
     void RunLua(QString str);
     void RunLuaString(QString str);
     void Hide();
