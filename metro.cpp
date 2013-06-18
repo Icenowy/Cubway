@@ -96,7 +96,7 @@ QString Metro::GetFont(QString family,int size,QString weight,QString style)
     if(font.bold()) font_weight="bold"; else font_weight="normal";
 //    return "font-family:"+font_family.replace(QString(" "), QString("-"))+";font-size:"+QString::number(font.pointSize())+";font-style:"+font_style+";font-weight:"+font_weight+";";
 //    return font_family.replace(QString(" "), QString("-"))+" "+QString::number(font.pointSize())+"px "+font_style+" "+font_weight;
-    return font_style+" "+font_weight+" "+QString::number(font.pointSize())+"px "+font_family.replace(QString(" "), QString("-"));
+    return font_style+" "+font_weight+" "+QString::number(font.pointSize())+"px "+'"'+font_family+'"';
     }else{
     return "-1";
     }
