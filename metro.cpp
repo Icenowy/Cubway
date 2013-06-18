@@ -3,6 +3,7 @@
 #include <QtGui/QDialog>
 #include <QtGui/QFileDialog>
 #include <QtGui/QColorDialog>
+#include <QtGui/QFontDialog>
 #include <QtGui/QMessageBox>
 #include <QtCore/QProcess>
 #include <QtGui/QKeyEvent>
@@ -66,10 +67,39 @@ QString Metro::OpenFile()
 QString Metro::GetColor()
 {
     QColor color = QColorDialog::getColor();
+    if(color.isValid()){
     int r = color.red();
     int g = color.green();
     int b = color.blue();
     return "rgb("+QString::number(r)+","+QString::number(g)+","+QString::number(b)+")";
+    }else{
+    return "-1";
+    }
+}
+
+QString Metro::GetFont(QString family,int size,QString weight,QString style)
+{
+    bool ok;
+    bool _style;
+    QFont font;
+    QString font_style;
+    QString font_weight;
+    QString font_family;
+    if (style=="italic") _style=true; else _style=false; 
+    if(weight=="bold")
+    font = QFontDialog::getFont(&ok,QFont(family, size,QFont::Bold,_style),this);
+    else
+    font = QFontDialog::getFont(&ok,QFont(family, size,QFont::Normal,_style),this);
+    if (ok) {
+    font_family=font.family();
+    if(font.italic()) font_style="italic"; else font_style="normal";
+    if(font.bold()) font_weight="bold"; else font_weight="normal";
+//    return "font-family:"+font_family.replace(QString(" "), QString("-"))+";font-size:"+QString::number(font.pointSize())+";font-style:"+font_style+";font-weight:"+font_weight+";";
+//    return font_family.replace(QString(" "), QString("-"))+" "+QString::number(font.pointSize())+"px "+font_style+" "+font_weight;
+    return font_style+" "+font_weight+" "+QString::number(font.pointSize())+"px "+font_family.replace(QString(" "), QString("-"));
+    }else{
+    return "-1";
+    }
 }
 
 void Metro::WinTitle(QString title)

@@ -25,6 +25,7 @@ public slots:
     QString System(QString str);
     QString OpenFile();
     QString GetColor();
+    QString GetFont(QString family,int size,QString weight,QString style);
     void WinTitle(QString title);
     void RunLua(QString str);
     void RunLuaString(QString str);
