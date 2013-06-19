@@ -1,6 +1,7 @@
 #include "metro.h"
 #include <QtGui/QApplication>
 #include <QDesktopWidget>
+#include <QStringList>
 #include <QtGui/QDialog>
 #include <QtGui/QFileDialog>
 #include <QtGui/QColorDialog>
@@ -10,6 +11,8 @@
 #include <QtGui/QKeyEvent>
 #include "lua/lua.hpp"
 #include "lmetrolib.h"
+
+Unix* UNIX = new Unix();
 
 
 Metro::Metro(QWidget *parent)
@@ -47,6 +50,7 @@ Metro::~Metro()
 void Metro::javaScriptWindowObjectCleared()
 {
     page()->mainFrame()->addToJavaScriptWindowObject("MetroView", this);
+    page()->mainFrame()->addToJavaScriptWindowObject("UNIX", UNIX);
 }
 
 QString Metro::System(QString str)
@@ -186,4 +190,12 @@ void Metro::keyPressEvent(QKeyEvent *ke)
 void Metro::Hide()
 {
     hide();
+}
+
+//UNIX
+
+void Unix::SendNotify(QString str,QString icon)
+{
+    QProcess *qp = new QProcess;
+    qp->start("notify-send",QStringList() << str << "-i" << icon);
 }

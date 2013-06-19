@@ -41,4 +41,14 @@ public slots:
     void Hide();
 };
 
+class Unix : public QObject
+{
+    Q_OBJECT
+//public:
+//    Unix(QObject *parent = 0);
+//    ~Unix();
+public slots:
+    void SendNotify(QString str,QString icon);
+};
+
 #endif // METRO_H
