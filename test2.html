@@ -1,0 +1,42 @@
+<html>
+<head>
+<script type="text/javascript">
+function checkTime(i)
+{
+if (i<10) 
+  {i="0" + i}
+  return i
+}
+function timetitle(){
+var today=new Date()
+h=today.getHours()
+m=today.getMinutes()
+s=today.getSeconds()
+// add a zero in front of numbers<10
+m=checkTime(m)
+s=checkTime(s)
+MetroView.WinTitle(h+":"+m+":"+s)
+t=setTimeout('timetitle()',500)
+}
+function init(){
+MetroView.WinResize(300,300)
+MetroView.WinPos(-1,-1)
+timetitle()
+UNIX.SendNotify("Clock Started","clock")
+//document.getElementById('testdiv').innerHTML=MetroView.Exec('ls','-l /',0)
+MetroView.Exec('gimp','',1)
+}
+</script>
+</head>
+<body onload="init()">
+<button onclick="MetroView.WinFlag('above')">above</button>
+<button onclick="MetroView.WinFlag('below')">below</button>
+<button onclick="MetroView.WinFlag('')">normal</button>
+<br />
+<button onclick="MetroView.WinFullScreen()">FullScreen</button>
+<button onclick="MetroView.WinMaximize()">Maximize</button>
+<button onclick="MetroView.WinMinimize()">Minimize</button>
+<button onclick="MetroView.WinNormal()">Normal</button>
+<div id="testdiv"></div>
+</body>
+</html>
