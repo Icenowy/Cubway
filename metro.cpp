@@ -13,7 +13,7 @@
 #include "lmetrolib.h"
 
 Unix* UNIX = new Unix();
-
+MFile* MFILE = new MFile();
 
 Metro::Metro(QWidget *parent)
     : QWebView(parent)
@@ -50,6 +50,7 @@ Metro::~Metro()
 void Metro::javaScriptWindowObjectCleared()
 {
     page()->mainFrame()->addToJavaScriptWindowObject("MetroView", this);
+    page()->mainFrame()->addToJavaScriptWindowObject("MetroFile", MFILE);
     page()->mainFrame()->addToJavaScriptWindowObject("UNIX", UNIX);
 }
 
@@ -208,6 +209,13 @@ void Metro::keyPressEvent(QKeyEvent *ke)
 void Metro::Hide()
 {
     hide();
+}
+
+//MetroFile
+void MFile::DownLoad(QString url,QString tofile)
+{
+    QProcess *qp = new QProcess;
+    qp->start("wget",QStringList() << url << "-O" << tofile);
 }
 
 //UNIX

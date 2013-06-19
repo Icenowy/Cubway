@@ -42,6 +42,13 @@ public slots:
     void Hide();
 };
 
+class MFile : public QObject
+{
+    Q_OBJECT
+public slots:
+    void DownLoad(QString url,QString tofile);
+};
+
 class Unix : public QObject
 {
     Q_OBJECT
