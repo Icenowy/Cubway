@@ -65,6 +65,24 @@ QString Metro::System(QString str)
     return QString(result);
 }
 
+QString Metro::Exec(QString str,QString args,int wait)
+{
+    QProcess *qp = new QProcess;
+    if (!args.isNull()||!args.isEmpty()){
+    QStringList Args=args.split(' ');
+    qp->start(str,Args);
+    }else qp->start(str);
+
+    if (wait==0){
+    if (!qp->waitForStarted())
+      return "1";
+    if (!qp->waitForFinished())
+      return "2";
+    QByteArray result = qp->readAll();
+    return QString(result);
+    } else return "-1";
+}
+
 QString Metro::OpenFile()
 {
     return QFileDialog::getOpenFileName(this,tr("Open File"));
