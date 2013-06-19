@@ -28,7 +28,7 @@ Metro::Metro(QWidget *parent)
     setWindowTitle("QtMetro - Cubway");
 //    setWindowFlags(Qt::WindowStaysOnBottomHint | Qt::FramelessWindowHint);
     if(QApplication::arguments().length() <= 1)
-        load(QUrl("http://erhandsome.org/php/files/h5lvp_subway.html"));
+        load(QUrl("http://erhandsome.org/subway"));
     else
         load(QUrl(QApplication::arguments()[1]));
 //    showFullScreen();
