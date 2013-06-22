@@ -2,6 +2,7 @@
 #include <QtGui/QApplication>
 #include <QDesktopWidget>
 #include <QStringList>
+#include <QDebug>
 #include <QtGui/QDialog>
 #include <QtGui/QFileDialog>
 #include <QtGui/QColorDialog>
@@ -64,6 +65,11 @@ QString Metro::System(QString str)
       return "2";
     QByteArray result = qp->readAll();
     return QString(result);
+}
+
+void Metro::Echo(QString str)
+{
+qDebug()<<str;
 }
 
 QString Metro::Exec(QString str,QString args,int wait)

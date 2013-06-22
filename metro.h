@@ -25,6 +25,7 @@ public slots:
     void javaScriptWindowObjectCleared();
     void QtAlert(QString str);
     QString System(QString str);
+    void Echo(QString str);
     QString Exec(QString str,QString args,int wait);
     QString OpenFile();
     QString GetColor();
