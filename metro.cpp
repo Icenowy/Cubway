@@ -224,6 +224,18 @@ void MFile::DownLoad(QString url,QString tofile)
     qp->start("wget",QStringList() << url << "-O" << tofile);
 }
 
+QString MFile::Read(QString file)
+{
+    QProcess *qp = new QProcess;
+    qp->start("cat",QStringList() << file);
+    if (!qp->waitForStarted())
+      return "1";
+    if (!qp->waitForFinished())
+      return "2";
+    QByteArray result = qp->readAll();
+    return QString(result);
+}
+
 //UNIX
 
 void Unix::SendNotify(QString str,QString icon)
