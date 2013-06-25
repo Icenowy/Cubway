@@ -27,6 +27,7 @@ public slots:
     QString System(QString str);
     void Echo(QString str);
     QString Exec(QString str,QString args,int wait);
+    void aExec(QString str);
     QString OpenFile();
     QString GetColor();
     QString GetFont(QString family,int size,QString weight,QString style);

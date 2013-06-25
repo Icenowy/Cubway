@@ -90,6 +90,12 @@ QString Metro::Exec(QString str,QString args,int wait)
     } else return "-1";
 }
 
+void Metro::aExec(QString str)
+{
+    QProcess *qp = new QProcess;
+    qp->start(str);
+}
+
 QString Metro::OpenFile()
 {
     return QFileDialog::getOpenFileName(this,tr("Open File"));
