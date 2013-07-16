@@ -10,8 +10,10 @@
 #include <QtGui/QMessageBox>
 #include <QtCore/QProcess>
 #include <QtGui/QKeyEvent>
-#include "lua/lua.hpp"
-#include "lmetrolib.h"
+#include <QMenu>
+#include <QAction>
+//#include "lua/lua.hpp"
+//#include "lmetrolib.h"
 
 Unix* UNIX = new Unix();
 MFile* MFILE = new MFile();
@@ -35,16 +37,16 @@ Metro::Metro(QWidget *parent)
 //    showFullScreen();
     connect(page()->mainFrame(), SIGNAL(javaScriptWindowObjectCleared()),
             this, SLOT(javaScriptWindowObjectCleared()));
-    lua = luaL_newstate();
-    luaL_openmetrolib(lua);
+  //  lua = luaL_newstate();
+  //  luaL_openmetrolib(lua);
     Mainview = this;
-    RunLua("libmetro.lua");
+  //  RunLua("libmetro.lua");
 }
 Metro* Metro::Mainview = NULL;
 
 Metro::~Metro()
 {
-    lua_close(lua);
+    //lua_close(lua);
     Mainview = NULL;
 }
 
@@ -193,17 +195,21 @@ void Metro::QtAlert(QString str)
 }
 
 
+/*
 void Metro::RunLua(QString str)
 {
     luaL_loadfile(lua,str.toAscii());
     lua_pcall(lua,0,LUA_MULTRET,0);
 }
+*/
 
+/*
 void Metro::RunLuaString(QString str)
 {
     luaL_loadstring(lua,str.toAscii());
     lua_pcall(lua,0,LUA_MULTRET,0);
 }
+*/
 
 void Metro::keyPressEvent(QKeyEvent *ke)
 {

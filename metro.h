@@ -8,7 +8,7 @@
 #include <QtWebKit/QWebElement>
 #include <QtWebKit/QWebView>
 #include <QtGui/QKeyEvent>
-#include "lua/lua.hpp"
+//#include "lua/lua.hpp"
 using namespace std;
 
 class Metro : public QWebView
@@ -19,7 +19,7 @@ public:
     ~Metro();
     static Metro *Mainview;
 protected:
-    lua_State *lua;
+//    lua_State *lua;
     void keyPressEvent(QKeyEvent *ke);
 public slots:
     void javaScriptWindowObjectCleared();
@@ -39,8 +39,8 @@ public slots:
     void WinMaximize();
     void WinMinimize();
     void WinNormal();
-    void RunLua(QString str);
-    void RunLuaString(QString str);
+//    void RunLua(QString str);
+//    void RunLuaString(QString str);
     void Hide();
 };
 
