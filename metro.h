@@ -50,6 +50,7 @@ class MFile : public QObject
 public slots:
     void DownLoad(QString url,QString tofile);
     QString Read(QString file);
+    QString List(QString where);
 };
 
 class Unix : public QObject

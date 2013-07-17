@@ -2,6 +2,7 @@
 #include <QtGui/QApplication>
 #include <QDesktopWidget>
 #include <QStringList>
+#include <QByteArray>
 #include <QDebug>
 #include <QtGui/QDialog>
 #include <QtGui/QFileDialog>
@@ -240,6 +241,20 @@ QString MFile::Read(QString file)
 {
     QProcess *qp = new QProcess;
     qp->start("cat",QStringList() << file);
+    if (!qp->waitForStarted())
+      return "1";
+    if (!qp->waitForFinished())
+      return "2";
+    QByteArray result = qp->readAll();
+    return QString(result);
+}
+
+QString MFile::List(QString where)
+{
+    QProcess *qp = new QProcess;
+    QStringList Args;
+    Args << where;
+    qp->start("genFileList.sh",Args);
     if (!qp->waitForStarted())
       return "1";
     if (!qp->waitForFinished())
