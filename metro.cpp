@@ -210,7 +210,7 @@ void Metro::resizeEvent(QResizeEvent * event)
 	char *buf;
 	buf = new char[snprintf(NULL,0,"onResizeEvent(%d,%d,%d,%d)",
 		event->size().width(),event->size().height(),
-		event->oldSize().width(),event->oldSize().height())];
+        event->oldSize().width(),event->oldSize().height())+1];
 	sprintf(buf,"onResizeEvent(%d,%d,%d,%d)",
 		event->size().width(),event->size().height(),
 		event->oldSize().width(),event->oldSize().height());
