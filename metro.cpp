@@ -13,8 +13,6 @@
 #include <QtGui/QKeyEvent>
 #include <QMenu>
 #include <QAction>
-//#include "lua/lua.hpp"
-//#include "lmetrolib.h"
 
 Unix* UNIX = new Unix();
 MFile* MFILE = new MFile();
@@ -195,23 +193,6 @@ void Metro::QtAlert(QString str)
     QMessageBox::information(this,"QtAlert",str);
 }
 
-
-/*
-void Metro::RunLua(QString str)
-{
-    luaL_loadfile(lua,str.toAscii());
-    lua_pcall(lua,0,LUA_MULTRET,0);
-}
-*/
-
-/*
-void Metro::RunLuaString(QString str)
-{
-    luaL_loadstring(lua,str.toAscii());
-    lua_pcall(lua,0,LUA_MULTRET,0);
-}
-*/
-
 void Metro::keyPressEvent(QKeyEvent *ke)
 {
     //if(ke->key() == Qt::Key_Super_L || ke->key() == Qt::Key_Super_R)
@@ -223,6 +204,19 @@ void Metro::keyPressEvent(QKeyEvent *ke)
     {
         QWebView::keyPressEvent(ke);
     }
+}
+void Metro::resizeEvent(QResizeEvent * event)
+{
+	char *buf;
+	buf = new char[snprintf(NULL,0,"onResizeEvent(%d,%d,%d,%d)",
+		event->size().width(),event->size().height(),
+		event->oldSize().width(),event->oldSize().height())];
+	sprintf(buf,"onResizeEvent(%d,%d,%d,%d)",
+		event->size().width(),event->size().height(),
+		event->oldSize().width(),event->oldSize().height());
+	page()->mainFrame()->evaluateJavaScript(buf);
+	delete[] buf;
+	QWebView::resizeEvent(event);
 }
 
 void Metro::Hide()

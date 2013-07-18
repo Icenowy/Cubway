@@ -21,6 +21,7 @@ public:
 protected:
 //    lua_State *lua;
     void keyPressEvent(QKeyEvent *ke);
+    void resizeEvent(QResizeEvent * event); 
 public slots:
     void javaScriptWindowObjectCleared();
     void QtAlert(QString str);
@@ -39,8 +40,6 @@ public slots:
     void WinMaximize();
     void WinMinimize();
     void WinNormal();
-//    void RunLua(QString str);
-//    void RunLuaString(QString str);
     void Hide();
 };
 
