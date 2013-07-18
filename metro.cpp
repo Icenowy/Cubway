@@ -162,9 +162,10 @@ void Metro::WinPos(int x,int y)
 
 void Metro::WinFlag(QString flag)
 {
-    Qt::WindowFlags flags = this->windowFlags();
-    if(flag=="below") flags |= Qt::WindowStaysOnBottomHint;//Mainview->setWindowFlags(Qt::WindowStaysOnBottomHint);
-    else if(flag=="above") flags |= Qt::WindowStaysOnTopHint;//Mainview->setWindowFlags(Qt::WindowStaysOnTopHint);
+    Qt::WindowFlags flags = 0;
+    flags = Qt::Window;
+    if(flag=="below") flags |= Qt::WindowStaysOnBottomHint;
+    if(flag=="above") flags |= Qt::WindowStaysOnTopHint;
     Mainview->setWindowFlags(flags);
     show();
 }
