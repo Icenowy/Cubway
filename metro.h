@@ -21,6 +21,7 @@ public:
 protected:
 //    lua_State *lua;
     void keyPressEvent(QKeyEvent *ke);
+    void keyReleaseEvent(QKeyEvent *ke);
     void resizeEvent(QResizeEvent * event); 
 public slots:
     void javaScriptWindowObjectCleared();
@@ -35,7 +36,7 @@ public slots:
     void WinTitle(QString title);
     void WinResize(int w,int h);
     void WinPos(int x,int y);
-//    void WinFlag(QString flag);
+    void WinFlag(QString flag);
     void WinFullScreen();
     void WinMaximize();
     void WinMinimize();

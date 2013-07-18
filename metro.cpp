@@ -159,14 +159,15 @@ void Metro::WinPos(int x,int y)
     Mainview->move(x,y);
     }
 }
-/*
+
 void Metro::WinFlag(QString flag)
 {
-    if(flag=="below") Mainview->setWindowFlags(Qt::WindowStaysOnBottomHint);
-    else if(flag=="above") Mainview->setWindowFlags(Qt::WindowStaysOnTopHint);
-    else Mainview->setWindowFlags(Qt::Window);
+    Qt::WindowFlags flags = this->windowFlags();
+    if(flag=="below") flags |= Qt::WindowStaysOnBottomHint;//Mainview->setWindowFlags(Qt::WindowStaysOnBottomHint);
+    else if(flag=="above") flags |= Qt::WindowStaysOnTopHint;//Mainview->setWindowFlags(Qt::WindowStaysOnTopHint);
+    Mainview->setWindowFlags(flags);
+    show();
 }
-*/
 
 void Metro::WinFullScreen()
 {
@@ -195,16 +196,28 @@ void Metro::QtAlert(QString str)
 
 void Metro::keyPressEvent(QKeyEvent *ke)
 {
-    //if(ke->key() == Qt::Key_Super_L || ke->key() == Qt::Key_Super_R)
-    //if(ke->key() == Qt::Key_Alt)
-    {
-
-    }
-    //else
-    {
-        QWebView::keyPressEvent(ke);
-    }
+    char *buf;
+    buf = new char[snprintf(NULL,0,"onKeyPressEvent(%d)",
+        ke->key())+1];
+    sprintf(buf,"onKeyPressEvent(%d)",
+        ke->key());
+    page()->mainFrame()->evaluateJavaScript(buf);
+    delete[] buf;
+    QWebView::keyPressEvent(ke);
 }
+
+void Metro::keyReleaseEvent(QKeyEvent *ke)
+{
+    char *buf;
+    buf = new char[snprintf(NULL,0,"onKeyReleaseEvent(%d)",
+        ke->key())+1];
+    sprintf(buf,"onKeyReleaseEvent(%d)",
+        ke->key());
+    page()->mainFrame()->evaluateJavaScript(buf);
+    delete[] buf;
+    QWebView::keyPressEvent(ke);
+}
+
 void Metro::resizeEvent(QResizeEvent * event)
 {
 	char *buf;

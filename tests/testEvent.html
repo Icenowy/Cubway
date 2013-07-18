@@ -13,6 +13,10 @@
 		{
 			UNIX.SendNotify("OnResize:" + a + "," + b + "," + c + "," + d,"qt4logo");
 		}
+		function onKeyPressEvent(a)
+		{
+			UNIX.SendNotify("OnKeyPress:" + a,"qt4logo");
+		}
 	</script>
 </HEAD>
 <BODY LANG="zh-CN" DIR="LTR">
