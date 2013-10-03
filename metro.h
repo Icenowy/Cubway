@@ -25,6 +25,8 @@ protected:
     void resizeEvent(QResizeEvent * event); 
 public slots:
     void javaScriptWindowObjectCleared();
+    QString GetArg(int n);
+    int GetArgsLen();
     void QtAlert(QString str);
     QString System(QString str);
     void Echo(QString str);

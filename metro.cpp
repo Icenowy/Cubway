@@ -56,6 +56,20 @@ void Metro::javaScriptWindowObjectCleared()
     page()->mainFrame()->addToJavaScriptWindowObject("UNIX", UNIX);
 }
 
+QString Metro::GetArg(int n)
+{
+  if(n>QApplication::arguments().length()||n<0){
+    return "undefined";
+  }else{
+    return  QApplication::arguments()[n];
+  }
+}
+
+int Metro::GetArgsLen()
+{
+  return  QApplication::arguments().length();
+}
+
 QString Metro::System(QString str)
 {
     QProcess *qp = new QProcess;
