@@ -11,7 +11,7 @@ Subway的客户端，由于某些历史原因，项目叫做Cubway。
 ==== 编译 ====
 
 首先確保有Qt4，接着：
-<code>
+<pre>
 $ git clone https://github.com/EasternHeart/Cubway
 
 $ cd Cubway
@@ -21,13 +21,13 @@ $ qmake #Arch:qmake-qt4
 $ make
 
 $ make clean
-</code>
+</pre>
 
 ==== 運行 ====
 
-<code>
+<pre>
 $ ./QtMetro HTML文件路徑 其他參數
-</code>
+</pre>
 
 
 
