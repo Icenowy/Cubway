@@ -4,7 +4,7 @@
 
 Subway的客户端，由于某些历史原因，项目叫做Cubway。
 
-[http://erhandsome.org/~jqk/subway/doku.php?id=subway%E6%98%AF%E7%A5%9E%E9%A6%AC 文檔在這裡]
+詳細了解？[http://erhandsome.org/~jqk/subway/doku.php?id=subway%E6%98%AF%E7%A5%9E%E9%A6%AC 文檔在這裡]
 
 === 使用 ===
 
