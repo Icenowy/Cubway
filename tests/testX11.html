@@ -4,6 +4,12 @@ var win = X11.getActiveWindow();
 //X11.moveWindowToDesktop(win,0);
 alert(X11.getWindowDesktop(win));
 X11.minimizeWindow(win);
+var clients = X11.getClientList();
+for(var client in clients)
+{
+	document.write("<div style=\"color:red\">" + X11.getWindowTitle(clients[client]) + "</div>");
+}
+//alert(X11.getClientList());
 //alert(win);
 //X11.Test();
 </script>
