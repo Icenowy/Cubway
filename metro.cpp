@@ -408,3 +408,8 @@ int X11::getWindowDesktop(QString _wid)
 {
     return xfitMan().getWindowDesktop(toWindow(_wid));
 }
+
+void X11::minimizeWindow(QString _wid)
+{
+    xfitMan().minimizeWindow(toWindow(_wid));
+}

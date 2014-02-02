@@ -82,6 +82,7 @@ public slots:
     QString getActiveWindow();
     void moveWindowToDesktop(QString _wid, int _display);
     int getWindowDesktop(QString _wid);
+    void minimizeWindow(QString _wid);
     void Test();
 };
 
