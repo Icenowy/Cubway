@@ -8,7 +8,7 @@
 #include <QtWebKit/QWebElement>
 #include <QtWebKit/QWebView>
 #include <QtGui/QKeyEvent>
-//#include "lua/lua.hpp"
+#include "xfitman.h"
 using namespace std;
 
 class Metro : public QWebView
@@ -70,6 +70,19 @@ class Unix : public QObject
 //    ~Unix();
 public slots:
     void SendNotify(QString str,QString icon);
+};
+
+class X11 : public QObject
+{
+    Q_OBJECT
+private:
+    Window toWindow(QString _wid);
+    QString fromWindow(Window _wid);
+public slots:
+    QString getActiveWindow();
+    void moveWindowToDesktop(QString _wid, int _display);
+    int getWindowDesktop(QString _wid);
+    void Test();
 };
 
 #endif // METRO_H

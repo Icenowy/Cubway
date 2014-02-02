@@ -12,7 +12,12 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        metro.cpp
+        metro.cpp \
+    xfitman.cpp
 
-HEADERS  += metro.h
+HEADERS  += metro.h \
+    xfitman.h
 
+
+unix: CONFIG += link_pkgconfig
+unix: PKGCONFIG += x11

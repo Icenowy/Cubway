@@ -1,9 +1,8 @@
-#include "metro.h"
+#include <QDebug>
 #include <QtGui/QApplication>
 #include <QDesktopWidget>
 #include <QStringList>
 #include <QByteArray>
-#include <QDebug>
 #include <QtGui/QDialog>
 #include <QtGui/QFileDialog>
 #include <QtGui/QColorDialog>
@@ -14,8 +13,11 @@
 #include <QMenu>
 #include <QAction>
 
+#include "metro.h"
+
 Unix* UNIX = new Unix();
 MFile* MFILE = new MFile();
+X11* X11OBJ = new X11();
 
 Metro::Metro(QWidget *parent)
     : QWebView(parent)
@@ -54,6 +56,7 @@ void Metro::javaScriptWindowObjectCleared()
     page()->mainFrame()->addToJavaScriptWindowObject("MetroView", this);
     page()->mainFrame()->addToJavaScriptWindowObject("MetroFile", MFILE);
     page()->mainFrame()->addToJavaScriptWindowObject("UNIX", UNIX);
+    page()->mainFrame()->addToJavaScriptWindowObject("X11", X11OBJ);
 }
 
 QString Metro::GetArg(int n)
@@ -373,4 +376,35 @@ void Unix::SendNotify(QString str,QString icon)
     qp->start("notify-send",QStringList() << str << "-i" << icon);
 }
 
+//X11
 
+QString X11::getActiveWindow()
+{
+    return this->fromWindow(xfitMan().getActiveWindow());
+}
+
+void X11::moveWindowToDesktop(QString _wid, int _display)
+{
+    xfitMan().moveWindowToDesktop(toWindow(_wid),_display);
+}
+
+void X11::Test()
+{
+    QProcess *qp = new QProcess;
+    qp->start("notify-send",QStringList() << "Testing X11");
+}
+
+QString X11::fromWindow(Window _wid)
+{
+    return QString::number((unsigned long long)_wid,16);
+}
+
+Window X11::toWindow(QString _wid)
+{
+    return (Window)_wid.toULongLong(NULL,16);
+}
+
+int X11::getWindowDesktop(QString _wid)
+{
+    return xfitMan().getWindowDesktop(toWindow(_wid));
+}
