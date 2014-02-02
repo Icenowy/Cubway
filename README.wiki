@@ -10,7 +10,7 @@ Subway的客户端，由于某些历史原因，项目叫做Cubway。
 
 ==== 编译 ====
 
-首先確保有Qt4，接着：
+首先確保有Qt4以及libX11，接着：
 <pre>
 $ git clone https://github.com/EasternHeart/Cubway
 
