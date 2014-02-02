@@ -413,3 +413,20 @@ void X11::minimizeWindow(QString _wid)
 {
     xfitMan().minimizeWindow(toWindow(_wid));
 }
+
+QVariantList X11::getClientList()
+{
+    QList<Window> wl = xfitMan().getClientList();
+    QVariantList vl;
+    Window w;
+    foreach(w,wl)
+    {
+        vl.append(fromWindow(w));
+    }
+    return vl;
+}
+
+QString X11::getWindowTitle(QString _wid)
+{
+    return xfitMan().getWindowTitle(toWindow(_wid));
+}
