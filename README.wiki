@@ -29,11 +29,10 @@ $ make clean
 $ ./QtMetro HTML文件路徑 其他參數
 </pre>
 
+==== WIKI ====
 
-=== 近況概述 ===
+[http://erhandsome.org/~jqk/subway/doku.php http://erhandsome.org/subway]
 
-Cubway的貢獻者實際有三位。但相對活躍只有兩位，目前活躍的只有筆者一位。而且筆者甚至沒有學過C++和Qt，全部靠照葫蘆畫瓢和看文檔。因此，本來沒有多大難度的初始開發階段變得困難重重。圖靈102年(西元2013年)6月，筆者創建了[http://erhandsome.org/~jqk/subway/doku.php Subway總項目的WIKI站]，旨在創立完整的體系，其間要感謝[http://erhandsome.org/~jqk/subway/doku.php?id=雜項討論 NetArmy與StarBrilliant的一些"指點"]。但進度仍然緩慢。
+==== 文檔 ====
 
-=== 期望 ===
-
-因此，筆者期望有Qt的愛好者加入開發團隊，使得項目不再受到筆者水平的拖累。
+新的文檔(BigRoadmap)將於圖靈103年3至6月之間發佈，敬請期待。
