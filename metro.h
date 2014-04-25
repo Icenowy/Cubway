@@ -8,7 +8,7 @@
 #include <QtWebKit/QWebElement>
 #include <QtWebKit/QWebView>
 #include <QtGui/QKeyEvent>
-#include "xfitman.h"
+#include <QHash>
 using namespace std;
 
 class Metro : public QWebView
@@ -23,7 +23,11 @@ protected:
     void keyPressEvent(QKeyEvent *ke);
     void keyReleaseEvent(QKeyEvent *ke);
     void resizeEvent(QResizeEvent * event); 
+    void addObject(QString name, QObject *_object);
+    QHash<QString, QObject*> _objects;
 public slots:
+    void HandleMetaData();
+    QObject *LoadModule(QString mod);
     void javaScriptWindowObjectCleared();
     QString GetArg(int n);
     int GetArgsLen();
@@ -72,20 +76,4 @@ public slots:
     void SendNotify(QString str,QString icon);
 };
 
-class X11 : public QObject
-{
-    Q_OBJECT
-private:
-    Window toWindow(QString _wid);
-    QString fromWindow(Window _wid);
-public slots:
-    QString getActiveWindow();
-    void moveWindowToDesktop(QString _wid, int _display);
-    int getWindowDesktop(QString _wid);
-    void minimizeWindow(QString _wid);
-    QVariantList getClientList();
-    QString getWindowTitle(QString _wid);
-    void Test();
-};
-
-#endif // METRO_H
+#endif //METRO_H

@@ -3,6 +3,7 @@
 #include <QDesktopWidget>
 #include <QStringList>
 #include <QByteArray>
+#include <QMultiMap>
 #include <QtGui/QDialog>
 #include <QtGui/QFileDialog>
 #include <QtGui/QColorDialog>
@@ -10,20 +11,20 @@
 #include <QtGui/QMessageBox>
 #include <QtCore/QProcess>
 #include <QtGui/QKeyEvent>
-#include <QMenu>
-#include <QAction>
+#include <QPluginLoader>
 
 #include "metro.h"
 
-Unix* UNIX = new Unix();
-MFile* MFILE = new MFile();
-X11* X11OBJ = new X11();
+Unix *UNIX = new Unix();
+MFile *MFILE = new MFile();
 
 Metro::Metro(QWidget *parent)
     : QWebView(parent)
 {
     QWebSettings* defaultSettings = QWebSettings::globalSettings();  
     QWebSettings::enablePersistentStorage("");  
+    // Inspect Support
+    defaultSettings->setAttribute(QWebSettings::DeveloperExtrasEnabled, true);
     defaultSettings->setAttribute(QWebSettings::JavascriptEnabled, true);  
     // Plug-ins must be set to be enabled to use plug-ins.  
     defaultSettings->setAttribute(QWebSettings::PluginsEnabled,true);  
@@ -36,8 +37,11 @@ Metro::Metro(QWidget *parent)
     else
         load(QUrl(QApplication::arguments()[1]));
 //    showFullScreen();
+
+    connect(this, SIGNAL(loadFinished(bool)),
+            this, SLOT(HandleMetaData()) );
     connect(page()->mainFrame(), SIGNAL(javaScriptWindowObjectCleared()),
-            this, SLOT(javaScriptWindowObjectCleared()));
+            this, SLOT(javaScriptWindowObjectCleared()) );
   //  lua = luaL_newstate();
   //  luaL_openmetrolib(lua);
     Mainview = this;
@@ -51,12 +55,46 @@ Metro::~Metro()
     Mainview = NULL;
 }
 
+
+void Metro::HandleMetaData(){
+  QMultiMap<QString, QString> Data = page()->mainFrame()->metaData();
+  if(!Data.values("subway_title").isEmpty()) setWindowTitle(Data.values("subway_title").at(0));
+  if(!Data.values("subway_size").isEmpty()){
+    QString sizeStr = Data.values("subway_size").at(0);
+    QStringList sizeXY = sizeStr.split("x");
+    if(sizeXY.size()==2)
+      resize(sizeXY[0].toInt(),sizeXY[1].toInt());
+  }
+
+  show();
+}
+
+
+QObject *Metro::LoadModule(QString mod){
+  QPluginLoader* pluginloader=new QPluginLoader(this);
+  pluginloader -> setLoadHints(QLibrary::ResolveAllSymbolsHint);
+  pluginloader -> setFileName("Modules/"+mod+"/lib"+mod+".so");
+  if(pluginloader->load()){
+    return pluginloader->instance();
+  }else{
+    pluginloader -> setFileName(mod);
+    pluginloader -> load();
+    return pluginloader->instance();
+  }
+}
+
+
+void Metro::addObject(QString name, QObject *_object){
+  page() -> mainFrame() -> addToJavaScriptWindowObject(name, _object);
+  _objects[name] = _object;
+}
+
+
 void Metro::javaScriptWindowObjectCleared()
 {
-    page()->mainFrame()->addToJavaScriptWindowObject("MetroView", this);
-    page()->mainFrame()->addToJavaScriptWindowObject("MetroFile", MFILE);
-    page()->mainFrame()->addToJavaScriptWindowObject("UNIX", UNIX);
-    page()->mainFrame()->addToJavaScriptWindowObject("X11", X11OBJ);
+  addObject("MetroView", this);
+  addObject("MetroFile", MFILE);
+  addObject("UNIX", UNIX);
 }
 
 QString Metro::GetArg(int n)
@@ -374,59 +412,4 @@ void Unix::SendNotify(QString str,QString icon)
 {
     QProcess *qp = new QProcess;
     qp->start("notify-send",QStringList() << str << "-i" << icon);
-}
-
-//X11
-
-QString X11::getActiveWindow()
-{
-    return this->fromWindow(xfitMan().getActiveWindow());
-}
-
-void X11::moveWindowToDesktop(QString _wid, int _display)
-{
-    xfitMan().moveWindowToDesktop(toWindow(_wid),_display);
-}
-
-void X11::Test()
-{
-    QProcess *qp = new QProcess;
-    qp->start("notify-send",QStringList() << "Testing X11");
-}
-
-QString X11::fromWindow(Window _wid)
-{
-    return QString::number((unsigned long long)_wid,16);
-}
-
-Window X11::toWindow(QString _wid)
-{
-    return (Window)_wid.toULongLong(NULL,16);
-}
-
-int X11::getWindowDesktop(QString _wid)
-{
-    return xfitMan().getWindowDesktop(toWindow(_wid));
-}
-
-void X11::minimizeWindow(QString _wid)
-{
-    xfitMan().minimizeWindow(toWindow(_wid));
-}
-
-QVariantList X11::getClientList()
-{
-    QList<Window> wl = xfitMan().getClientList();
-    QVariantList vl;
-    Window w;
-    foreach(w,wl)
-    {
-        vl.append(fromWindow(w));
-    }
-    return vl;
-}
-
-QString X11::getWindowTitle(QString _wid)
-{
-    return xfitMan().getWindowTitle(toWindow(_wid));
 }
