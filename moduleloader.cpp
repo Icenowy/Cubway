@@ -1,8 +1,14 @@
 #include "moduleloader.h"
 #include <QPluginLoader>
-
+#include <QDebug>
 // Builtins 
 #include "MFile.h"
+
+#if defined(Q_OS_WIN32)
+#define _LIB_END ".dll"
+#else
+#define _LIB_END ".so"
+#endif
 
 QObject* ModuleLoader::LoadModule(QString name)
 {
@@ -24,20 +30,23 @@ QObject* ModuleLoader::LoadModule(QString name)
 
 QString ModuleLoader::getModulePath(QString mod)
 {
-    if (!_dirModule.exists(mod)) {
-        if (QDir::current().exists(mod+".so")) {
-            return QDir::current().filePath(mod+".so");
-        } else {
-            return NULL;
-        }
-    } else {
-        QDir moddir(_dirModule.filePath(mod));
-        if (!moddir.exists("lib"+mod+".so")) {
-            return NULL;
-        } else {
-            return moddir.filePath("lib"+mod+".so");
-        }
+  qDebug() << "Load Module:" << mod;
+  if (!_dirModule.exists(mod)) {
+    if (QDir::current().exists(mod+_LIB_END)) {
+      return QDir::current().filePath(mod+_LIB_END);
+    }else{
+      qDebug() << "Error: Module file not found in current directory";
+      return NULL;
     }
+  }else{
+    QDir moddir(_dirModule.filePath(mod));
+    if (!moddir.exists("lib"+mod+_LIB_END)) {
+      qDebug() << "Error: Module file " << "lib"+mod+_LIB_END << " not exist";
+      return NULL;
+    }else{
+      return moddir.filePath("lib"+mod+_LIB_END);
+    }
+  }
 }
 
 bool ModuleLoader::isBuiltin(QString name)
@@ -53,3 +62,5 @@ QObject* ModuleLoader::getBuiltin(QString name)
         return new MFile();
     return NULL;
 }
+
+#undef _LIB_END

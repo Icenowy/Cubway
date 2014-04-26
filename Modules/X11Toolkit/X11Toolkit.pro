@@ -1,4 +1,4 @@
-TARGET = subway_x11
+TARGET = X11Toolkit
 TEMPLATE = lib
 
 QT += core

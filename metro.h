@@ -8,8 +8,8 @@
 #include <QtWebKit/QWebElement>
 #include <QtWebKit/QWebView>
 #include <QtGui/QKeyEvent>
+#include <QMultiMap>
 #include <QHash>
-#include <QDir>
 #include "moduleloader.h"
 using namespace std;
 
@@ -27,21 +27,28 @@ protected:
     void resizeEvent(QResizeEvent * event); 
     void addObject(QString name, QObject *_object);
 private:
+    QMultiMap<QString, QString> MetaData;
+    QString InitFunction;
     QHash<QString, QObject*> _objects;
     ModuleLoader _moduleLoader;
+    QHash<QString, bool> EventsEnabled;
 public slots:
     void HandleMetaData();
     void javaScriptWindowObjectCleared();
     QString GetArg(int n);
     int GetArgsLen();
     void QtAlert(QString str);
-    QString System(QString str);
     void Echo(QString str);
+    /*
+    QString System(QString str);
     QString Exec(QString str,QString args,int wait);
     void aExec(QString str);
+    */
     QString OpenFile();
     QString GetColor();
     QString GetFont(QString family,int size,QString weight,QString style);
+    QWebElement Element(QString selector);
+    QWebElementCollection Elements(QString selector);
     void WinTitle(QString title);
     void WinResize(int w,int h);
     void WinPos(int x,int y);
@@ -50,7 +57,6 @@ public slots:
     void WinMaximize();
     void WinMinimize();
     void WinNormal();
-    void Hide();
 };
 
 #endif //METRO_H

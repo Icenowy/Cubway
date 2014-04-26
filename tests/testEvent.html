@@ -1,0 +1,30 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=utf-8">
+<meta name="subway_title" content="Event Test" >
+<meta name="subway_events" content="onResizeEvent onKeyPressEvent" >
+<meta name="generator" content="Bluefish 2.2.4" >
+<META NAME="CREATED" CONTENT="20130719;1421100">
+<META NAME="CHANGED" CONTENT="0;0">
+<STYLE TYPE="text/css">
+</STYLE>
+<script type="text/javascript" >
+function init(){
+	Notify=require.LoadModule("Notification");
+}
+function onResizeEvent(a,b,c,d)
+{
+	Notify.Send("OnResize", a+","+b+","+c+","+d, "qt4logo");
+}
+function onKeyPressEvent(a)
+{
+	Notify.Send("OnKeyPress", a, "qt4logo");
+}
+</script>
+</HEAD>
+<BODY LANG="zh-CN" DIR="LTR" onload="init()">
+<P STYLE="margin-bottom: 0cm"><BR>
+</P>
+</BODY>
+</HTML>
