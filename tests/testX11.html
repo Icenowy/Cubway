@@ -1,0 +1,31 @@
+<html>
+<head>
+<script type="text/javascript">
+var aList
+function getWinList(){
+  aList=''
+  clients = X11.getClientList();
+  for(var client in clients)
+  {
+	aList=aList+"<div style=\"color:red\">" + X11.getWindowTitle(clients[client]) + "</div>"
+  }
+  document.getElementById("result").innerHTML=aList
+}
+function init(){
+  X11 = MetroView.LoadModule("X11Toolkit");
+  var win = X11.getActiveWindow();
+  //X11.moveWindowToDesktop(win,0);
+  alert(X11.getWindowDesktop(win));
+  //X11.minimizeWindow(win);
+  getWinList();
+  //alert(X11.getClientList());
+  //alert(win);
+  //X11.Test();
+}
+</script>
+</head>
+<body onload="init()">
+<button onclick="getWinList()">Refresh</button>
+<div id="result"></div>
+</body>
+</html>

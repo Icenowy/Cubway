@@ -1,0 +1,38 @@
+== Cubway ==
+
+=== 這是神馬？ ===
+
+Subway的客户端，由于某些历史原因，项目叫做Cubway。
+
+詳細了解？[http://erhandsome.org/~jqk/subway/doku.php?id=subway%E6%98%AF%E7%A5%9E%E9%A6%AC 文檔在這裡]
+
+=== 使用 ===
+
+==== 编译 ====
+
+首先確保有Qt4以及libX11，接着：
+<pre>
+$ git clone https://github.com/EasternHeart/Cubway
+
+$ cd Cubway
+
+$ qmake #Arch:qmake-qt4
+
+$ make
+
+$ make clean
+</pre>
+
+==== 運行 ====
+
+<pre>
+$ ./QtMetro HTML文件路徑 其他參數
+</pre>
+
+==== WIKI ====
+
+[http://erhandsome.org/~jqk/subway/doku.php http://erhandsome.org/subway]
+
+==== 文檔 ====
+
+新的文檔(BigRoadmap)將於圖靈103年3至6月之間發佈，敬請期待。
