@@ -5,7 +5,7 @@
 <script type="text/javascript">
 
 function init(){
-	Notify = MetroView.LoadModule("Notification")
+	Notify = require.LoadModule("Notification")
 	Notify.Send("Test","Notification","dialog-information")
 	iTitle=document.getElementById("i_title")
 	iBody=document.getElementById("i_body")

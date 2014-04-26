@@ -1,5 +1,5 @@
 TEMPLATE = lib
-TARGET = subway_notification
+TARGET = Notification
 DEPENDPATH += .
 INCLUDEPATH += .
 

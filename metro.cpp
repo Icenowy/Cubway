@@ -8,15 +8,13 @@
 #include <QtGui/QFileDialog>
 #include <QtGui/QColorDialog>
 #include <QtGui/QFontDialog>
-#include <QtGui/QMessageBox>
-#include <QtCore/QProcess>
 #include <QtGui/QKeyEvent>
+#include <QProcess>
 #include <QPluginLoader>
-
+#include <QMessageBox>
 #include "metro.h"
-
-Unix *UNIX = new Unix();
-MFile *MFILE = new MFile();
+#include "moduleloader.h"
+#include "MFile.h"
 
 Metro::Metro(QWidget *parent)
     : QWebView(parent)
@@ -42,10 +40,9 @@ Metro::Metro(QWidget *parent)
             this, SLOT(HandleMetaData()) );
     connect(page()->mainFrame(), SIGNAL(javaScriptWindowObjectCleared()),
             this, SLOT(javaScriptWindowObjectCleared()) );
-  //  lua = luaL_newstate();
-  //  luaL_openmetrolib(lua);
+  addObject("MetroView", this);
+  addObject("require",&_moduleLoader);
     Mainview = this;
-  //  RunLua("libmetro.lua");
 }
 Metro* Metro::Mainview = NULL;
 
@@ -70,20 +67,6 @@ void Metro::HandleMetaData(){
 }
 
 
-QObject *Metro::LoadModule(QString mod){
-  QPluginLoader* pluginloader=new QPluginLoader(this);
-  pluginloader -> setLoadHints(QLibrary::ResolveAllSymbolsHint);
-  pluginloader -> setFileName("Modules/"+mod+"/lib"+mod+".so");
-  if(pluginloader->load()){
-    return pluginloader->instance();
-  }else{
-    pluginloader -> setFileName(mod);
-    pluginloader -> load();
-    return pluginloader->instance();
-  }
-}
-
-
 void Metro::addObject(QString name, QObject *_object){
   page() -> mainFrame() -> addToJavaScriptWindowObject(name, _object);
   _objects[name] = _object;
@@ -92,9 +75,11 @@ void Metro::addObject(QString name, QObject *_object){
 
 void Metro::javaScriptWindowObjectCleared()
 {
-  addObject("MetroView", this);
-  addObject("MetroFile", MFILE);
-  addObject("UNIX", UNIX);
+    QHashIterator<QString, QObject*> i(_objects);
+    while (i.hasNext()) {
+        i.next();
+        page()->mainFrame()->addToJavaScriptWindowObject(i.key(),i.value());
+    }
 }
 
 QString Metro::GetArg(int n)
@@ -293,123 +278,3 @@ void Metro::Hide()
     hide();
 }
 
-//MetroFile
-bool MFile::Exists(QString file)
-{
-return QFile::exists(file);
-}
-
-void MFile::DownLoad(QString url,QString tofile)
-{
-    QProcess *qp = new QProcess;
-    qp->start("wget",QStringList() << url << "-O" << tofile);
-}
-
-QString MFile::Read(QString file)
-{
-    QProcess *qp = new QProcess;
-    qp->start("cat",QStringList() << file);
-    if (!qp->waitForStarted())
-      return "1";
-    if (!qp->waitForFinished())
-      return "2";
-    QByteArray result = qp->readAll();
-    return QString(result);
-}
-
-bool MFile::CreateDir(QString path)
-{
-    QDir dir; 
-    return dir.mkpath(path);
-}
-
-int MFile::Remove(const QStringList& Files)
-{
-    QString filelist;
-    QMessageBox msgBox;
-    for (int i = 0; i < Files.size(); ++i)
-    {
-/*
-      QString gate=Files.at(i);
-      gate.replace( QString("\\"), QString("\\\\"));
-      filelist=filelist+"\n'"+gate+"'";
-*/
-      filelist=filelist+"\n'"+Files.at(i)+"'";
-    }
-    msgBox.setIcon(QMessageBox::Question);
-    msgBox.setWindowTitle(QString("!File Delete Confirm!"));
-    msgBox.setText("Do you really want to delete the files "+filelist+" ?");
-    msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::Cancel);
-    int re = msgBox.exec();
-    if(re==QMessageBox::Yes){
-    QFile file;
-    for (int i = 0; i < Files.size(); ++i)
-      file.remove(Files.at(i));
-    return 0;
-    }else{
-    return 1;
-    }
-}
-
-bool MFile::CopyFile(QString from,QString to)
-{
-    QMessageBox msgBox;
-    msgBox.setIcon(QMessageBox::Question);
-    msgBox.setWindowTitle(QString("!File Copy Confirm!"));
-    msgBox.setText("Do you really want to copy the file '"+from+"' to '"+to+"'?");
-    msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::Cancel);
-    int re = msgBox.exec();
-    if(re==QMessageBox::Yes){
-     QFile file;
-     return file.copy(from,to);
-    }else{
-     return false;
-    }
-}
-
-bool MFile::Move(QString old,QString New,bool rename)
-{
-    QMessageBox msgBox;
-    msgBox.setIcon(QMessageBox::Question);
-    msgBox.setWindowTitle(QString("!File Rename Confirm!"));
-    if(rename==true)
-    msgBox.setText("Do you really want to rename the file '"+old+"' as '"+New+"'?");
-    else
-    msgBox.setText("Do you really want to move the file '"+old+"' to '"+New+"'?");
-    msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::Cancel);
-    int re = msgBox.exec();
-    if(re==QMessageBox::Yes){
-     QFile file;
-     return file.rename(old,New);
-    }else{
-     return false;
-    }
-}
-
-void MFile::XdgOpen(QString path)
-{
-system((QString("xdg-open \"") + path + 
-QString("\"")).toStdString().c_str());
-}
-
-QString MFile::List(QString where)
-{
-    QProcess *qp = new QProcess;
-    QStringList Args;
-    Args << where;
-    qp->start("genFileList.sh",Args);
-    if (!qp->waitForStarted())
-      return "1";
-    if (!qp->waitForFinished())
-      return "2";
-    QByteArray result = qp->readAll();
-    return QString(result);
-}
-
-//UNIX
-
-void Unix::SendNotify(QString str,QString icon)
-{
-    QProcess *qp = new QProcess;
-    qp->start("notify-send",QStringList() << str << "-i" << icon);
-}
