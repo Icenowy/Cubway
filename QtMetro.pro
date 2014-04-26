@@ -12,7 +12,10 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        metro.cpp 
+        metro.cpp \
+        moduleloader.cpp\
+        MFile.cpp
 
-HEADERS  += metro.h 
-
+HEADERS  += metro.h \
+        moduleloader.h\
+        MFile.h

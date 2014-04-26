@@ -9,6 +9,8 @@
 #include <QtWebKit/QWebView>
 #include <QtGui/QKeyEvent>
 #include <QHash>
+#include <QDir>
+#include "moduleloader.h"
 using namespace std;
 
 class Metro : public QWebView
@@ -24,10 +26,11 @@ protected:
     void keyReleaseEvent(QKeyEvent *ke);
     void resizeEvent(QResizeEvent * event); 
     void addObject(QString name, QObject *_object);
+private:
     QHash<QString, QObject*> _objects;
+    ModuleLoader _moduleLoader;
 public slots:
     void HandleMetaData();
-    QObject *LoadModule(QString mod);
     void javaScriptWindowObjectCleared();
     QString GetArg(int n);
     int GetArgsLen();
@@ -48,32 +51,6 @@ public slots:
     void WinMinimize();
     void WinNormal();
     void Hide();
-};
-
-class MFile : public QObject
-{
-    Q_OBJECT
-public slots:
-    bool Exists(QString file);
-    void DownLoad(QString url,QString tofile);
-    QString Read(QString file);
-    bool CreateDir(QString path);
-    int Remove(const QStringList& Files);
-//    int RemoveDirs(const QStringList& Files);
-    bool CopyFile(QString from,QString to);
-    bool Move(QString old,QString New,bool rename);
-    void XdgOpen(QString path);
-    QString List(QString where);
-};
-
-class Unix : public QObject
-{
-    Q_OBJECT
-//public:
-//    Unix(QObject *parent = 0);
-//    ~Unix();
-public slots:
-    void SendNotify(QString str,QString icon);
 };
 
 #endif //METRO_H
