@@ -1,5 +1,9 @@
 <html>
 <head>
+<meta name="subway_title" content="X11Toolkit Test" >
+<meta name="subway_size" content="640x480" >
+<meta name="subway_position" content="center" >
+<meta name="subway_init" content="init()" >
 <script type="text/javascript">
 var aList
 function getWinList(){
@@ -12,7 +16,7 @@ function getWinList(){
   document.getElementById("result").innerHTML=aList
 }
 function init(){
-  X11 = MetroView.LoadModule("X11Toolkit");
+  X11 = require.LoadModule("X11Toolkit");
   var win = X11.getActiveWindow();
   //X11.moveWindowToDesktop(win,0);
   alert(X11.getWindowDesktop(win));
@@ -24,7 +28,7 @@ function init(){
 }
 </script>
 </head>
-<body onload="init()">
+<body>
 <button onclick="getWinList()">Refresh</button>
 <div id="result"></div>
 </body>

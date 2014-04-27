@@ -14,4 +14,4 @@ void NotificationModule::Send(QString title, QString body, QString icon)
   notify_uninit();
 }
 
-Q_EXPORT_PLUGIN2(subway_notification, NotificationModule)
+Q_EXPORT_PLUGIN2(Notification, NotificationModule)

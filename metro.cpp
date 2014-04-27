@@ -4,6 +4,7 @@
 #include <QStringList>
 #include <QByteArray>
 #include <QMultiMap>
+#include <QUrl>
 #include <QtGui/QDialog>
 #include <QtGui/QFileDialog>
 #include <QtGui/QColorDialog>
@@ -29,6 +30,8 @@ Metro::Metro(QWidget *parent)
     defaultSettings->setAttribute(QWebSettings::PluginsEnabled,true);  
     defaultSettings->setAttribute(QWebSettings::LocalContentCanAccessRemoteUrls,true);  
     defaultSettings->setObjectCacheCapacities(0, 0, 0); 
+    // Handle Links
+    page()->setLinkDelegationPolicy(QWebPage::DelegateAllLinks);
     setWindowTitle("QtMetro - Cubway");
 //    setWindowFlags(Qt::WindowStaysOnBottomHint | Qt::FramelessWindowHint);
     if(QApplication::arguments().length() <= 1)
@@ -41,6 +44,8 @@ Metro::Metro(QWidget *parent)
             this, SLOT(HandleMetaData()) );
     connect(page()->mainFrame(), SIGNAL(javaScriptWindowObjectCleared()),
             this, SLOT(javaScriptWindowObjectCleared()) );
+    connect(this, SIGNAL(linkClicked(const QUrl &)),
+            this, SLOT(LinkClicked(const QUrl &)) );
     addObject("MetroView", this);
     addObject("require",&_moduleLoader);
     Mainview = this;
@@ -284,6 +289,12 @@ QWebElementCollection Metro::Elements(QString selector){
 
 QWebElement Metro::Element(QString selector){
   return page()->mainFrame()->findFirstElement(selector);
+}
+
+
+void Metro::LinkClicked(const QUrl &_url){
+  if(_url.hasFragment())
+    emit LinkFragment(_url.fragment());
 }
 
 // Events

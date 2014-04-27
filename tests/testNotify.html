@@ -8,15 +8,20 @@
 <script type="text/javascript">
 
 function init(){
+	MetroView.LinkFragment.connect(LinkHandle)
 	Notify = require.LoadModule("Notification")
 	Notify.Send("Test","Notification","dialog-information")
-	iTitle=document.getElementById("i_title")
-	iBody=document.getElementById("i_body")
-	iIcon=document.getElementById("i_icon")
+	iTitle=MetroView.Element("#i_title")
+	iBody=MetroView.Element("#i_body")
+	iIcon=MetroView.Element("#i_icon")
 }
 
 function hit(){
 	Notify.Send(iTitle.value,iBody.value,iIcon.value)
+}
+
+function LinkHandle(_fragment){
+	if(_fragment=="Hit") hit()
 }
 
 </script>
@@ -29,6 +34,6 @@ function hit(){
 <br/>
 <input id="i_icon" type="text" placeholder="Icon" value="dialog-information" />
 <br/>
-<button onclick="hit()">Send</button>
+<a href="#Hit">Send</a>
 </body>
 </html>

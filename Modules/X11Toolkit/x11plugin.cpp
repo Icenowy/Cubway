@@ -59,4 +59,4 @@ QString X11::getWindowTitle(QString _wid)
   return xfitMan().getWindowTitle(toWindow(_wid));
 }
 
-Q_EXPORT_PLUGIN2(subway_x11, X11)
+Q_EXPORT_PLUGIN2(X11Toolkit, X11)

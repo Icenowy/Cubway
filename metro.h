@@ -32,6 +32,8 @@ private:
     QHash<QString, QObject*> _objects;
     ModuleLoader _moduleLoader;
     QHash<QString, bool> EventsEnabled;
+signals:
+    void LinkFragment(QString _fragment);
 public slots:
     void HandleMetaData();
     void javaScriptWindowObjectCleared();
@@ -47,8 +49,6 @@ public slots:
     QString OpenFile();
     QString GetColor();
     QString GetFont(QString family,int size,QString weight,QString style);
-    QWebElement Element(QString selector);
-    QWebElementCollection Elements(QString selector);
     void WinTitle(QString title);
     void WinResize(int w,int h);
     void WinPos(int x,int y);
@@ -57,6 +57,9 @@ public slots:
     void WinMaximize();
     void WinMinimize();
     void WinNormal();
+    void LinkClicked(const QUrl &_url);
+    QWebElement Element(QString selector);
+    QWebElementCollection Elements(QString selector);
 };
 
 #endif //METRO_H
