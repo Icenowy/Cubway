@@ -24,3 +24,4 @@ qtc_packaging
 # Modules
 
 Modules/*/*.so*
+Modules/*/Makefile
