@@ -49,6 +49,7 @@ public slots:
     QString OpenFile();
     QString GetColor();
     QString GetFont(QString family,int size,QString weight,QString style);
+    QStringList WinSizeHint();
     void WinTitle(QString title);
     void WinResize(int w,int h);
     void WinPos(int x,int y);

@@ -69,9 +69,13 @@ void Metro::HandleMetaData(){
   /* Size */
   if(!MetaData.values("subway_size").isEmpty()){
     QString tmp_size = MetaData.values("subway_size").at(0);
+    if(tmp_size=="auto"){
+      resize(this->page()->mainFrame()->contentsSize());
+    }else{
     QStringList sizeXY = tmp_size.split("x");
     if(sizeXY.size()==2)
       resize(sizeXY[0].toInt(),sizeXY[1].toInt());
+    }
   }
   /* Position */
   if(!MetaData.values("subway_position").isEmpty()){
@@ -234,6 +238,12 @@ void Metro::WinTitle(QString title)
 void Metro::WinResize(int w,int h)
 {
     Mainview->resize(w,h);
+}
+
+QStringList Metro::WinSizeHint(){
+  QStringList SizeHint;
+  SizeHint << QString::number(Mainview->page()->mainFrame()->contentsSize().width()) << QString::number(Mainview->page()->mainFrame()->contentsSize().height());
+  return SizeHint;
 }
 
 void Metro::WinPos(int x,int y)
