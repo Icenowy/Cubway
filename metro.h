@@ -3,12 +3,14 @@
 
 #include <iostream>
 #include <QtGui/QWidget>
+#include <QSize>
 #include <QtWebKit/QWebSettings>
 #include <QtWebKit/QWebFrame>
 #include <QtWebKit/QWebElement>
 #include <QtWebKit/QWebView>
 #include <QtGui/QKeyEvent>
 #include <QMultiMap>
+#include <QVariant>
 #include <QHash>
 #include "moduleloader.h"
 using namespace std;
@@ -26,6 +28,7 @@ protected:
     void keyReleaseEvent(QKeyEvent *ke);
     void resizeEvent(QResizeEvent * event); 
     void addObject(QString name, QObject *_object);
+    void doWebSettings();
 private:
     QMultiMap<QString, QString> MetaData;
     QString InitFunction;
@@ -49,7 +52,7 @@ public slots:
     QString OpenFile();
     QString GetColor();
     QString GetFont(QString family,int size,QString weight,QString style);
-    QStringList WinSizeHint();
+    QVariantMap WinSizeHint();
     void WinTitle(QString title);
     void WinResize(int w,int h);
     void WinPos(int x,int y);

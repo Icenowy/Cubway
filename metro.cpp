@@ -21,17 +21,7 @@
 Metro::Metro(QWidget *parent)
     : QWebView(parent)
 {
-    QWebSettings* defaultSettings = QWebSettings::globalSettings();  
-    QWebSettings::enablePersistentStorage("");  
-    // Inspect Support
-    defaultSettings->setAttribute(QWebSettings::DeveloperExtrasEnabled, true);
-    defaultSettings->setAttribute(QWebSettings::JavascriptEnabled, true);  
-    // Plug-ins must be set to be enabled to use plug-ins.  
-    defaultSettings->setAttribute(QWebSettings::PluginsEnabled,true);  
-    defaultSettings->setAttribute(QWebSettings::LocalContentCanAccessRemoteUrls,true);  
-    defaultSettings->setObjectCacheCapacities(0, 0, 0); 
-    // Handle Links
-    page()->setLinkDelegationPolicy(QWebPage::DelegateAllLinks);
+    this->doWebSettings();
     setWindowTitle("QtMetro - Cubway");
 //    setWindowFlags(Qt::WindowStaysOnBottomHint | Qt::FramelessWindowHint);
     if(QApplication::arguments().length() <= 1)
@@ -54,10 +44,26 @@ Metro* Metro::Mainview = NULL;
 
 Metro::~Metro()
 {
-    //lua_close(lua);
     Mainview = NULL;
 }
 
+void Metro::doWebSettings()
+{
+    QWebSettings* defaultSettings = QWebSettings::globalSettings();  
+    QWebSettings::enablePersistentStorage("");  
+
+    // Inspect Support
+    defaultSettings->setAttribute(QWebSettings::DeveloperExtrasEnabled, true);
+
+    defaultSettings->setAttribute(QWebSettings::JavascriptEnabled, true);  
+    // Plug-ins must be set to be enabled to use plug-ins.  
+    defaultSettings->setAttribute(QWebSettings::PluginsEnabled,true);  
+    defaultSettings->setAttribute(QWebSettings::LocalContentCanAccessRemoteUrls,true);  
+    defaultSettings->setObjectCacheCapacities(0, 0, 0); 
+    // Handle Links
+    page()->setLinkDelegationPolicy(QWebPage::DelegateAllLinks);
+ 
+}
 
 void Metro::HandleMetaData(){
   /* Get data */
@@ -66,6 +72,8 @@ void Metro::HandleMetaData(){
   /* Title */
   if(!MetaData.values("subway_title").isEmpty())
     setWindowTitle(MetaData.values("subway_title").at(0));
+  else
+    setWindowTitle(page()->mainFrame()->title());
   /* Size */
   if(!MetaData.values("subway_size").isEmpty()){
     QString tmp_size = MetaData.values("subway_size").at(0);
@@ -240,10 +248,12 @@ void Metro::WinResize(int w,int h)
     Mainview->resize(w,h);
 }
 
-QStringList Metro::WinSizeHint(){
-  QStringList SizeHint;
-  SizeHint << QString::number(Mainview->page()->mainFrame()->contentsSize().width()) << QString::number(Mainview->page()->mainFrame()->contentsSize().height());
-  return SizeHint;
+QVariantMap Metro::WinSizeHint(){
+  QVariantMap sizeHint;
+  //SizeHint << QString::number(Mainview->page()->mainFrame()->contentsSize().width()) << QString::number(Mainview->page()->mainFrame()->contentsSize().height());
+  sizeHint["width"]=Mainview->page()->mainFrame()->contentsSize().width();
+  sizeHint["height"]=Mainview->page()->mainFrame()->contentsSize().height();
+  return sizeHint;
 }
 
 void Metro::WinPos(int x,int y)

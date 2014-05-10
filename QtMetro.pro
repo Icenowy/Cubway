@@ -10,6 +10,7 @@ QT       += webkit
 TARGET = QtMetro
 TEMPLATE = app
 
+DEFINES += "CUBWAY_DEBUG=1"
 
 SOURCES += main.cpp\
         metro.cpp \
