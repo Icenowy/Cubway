@@ -85,6 +85,9 @@ void Metro::HandleMetaData(){
       resize(sizeXY[0].toInt(),sizeXY[1].toInt());
     }
   }
+  if(!MetaData.values("subway_fixed").isEmpty()){
+    setFixedSize(this->size());
+  }
   /* Position */
   if(!MetaData.values("subway_position").isEmpty()){
     QString tmp_pos = MetaData.values("subway_position").at(0);
