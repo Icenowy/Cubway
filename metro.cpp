@@ -98,10 +98,29 @@ void Metro::HandleMetaData(){
   }
   /* Flag */
   //
+  /* Scrollbar */
+  if(!MetaData.values("subway_scrollbar").isEmpty()){
+    QStringList tmp_scroll = MetaData.values("subway_scrollbar");
+    for(int i=0; i<tmp_scroll.size(); i++){
+      Qt::ScrollBarPolicy val;
+      if(tmp_scroll[i] == "AlwaysOn"){
+	val = Qt::ScrollBarAlwaysOn;
+      }else if(tmp_scroll[i] == "AlwaysOff"){
+	val = Qt::ScrollBarAlwaysOff;
+      }else{
+	val = Qt::ScrollBarAsNeeded;
+      }
+      if(i == 0){
+	this->page()->mainFrame()->setScrollBarPolicy(Qt::Vertical, val);
+      }else{
+	this->page()->mainFrame()->setScrollBarPolicy(Qt::Horizontal, val);
+      }
+    }
+  }
   /* Events */
   if(!MetaData.values("subway_events").isEmpty()){
     QStringList tmp_events = MetaData.values("subway_events").at(0).split(" ");
-    for(int i=0;i<tmp_events.size();i++)
+    for(int i=0; i<tmp_events.size(); i++)
       EventsEnabled[tmp_events[i]] = true;
   }
   /* Init Function */
