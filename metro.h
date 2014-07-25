@@ -49,7 +49,7 @@ public slots:
     QString Exec(QString str,QString args,int wait);
     void aExec(QString str);
     */
-    QString OpenFile();
+    QString OpenFile(QString Dir, QString Filters);
     QString GetColor();
     QString GetFont(QString family,int size,QString weight,QString style);
     QVariantMap WinSizeHint();
@@ -61,9 +61,8 @@ public slots:
     void WinMaximize();
     void WinMinimize();
     void WinNormal();
+    QVariantMap ScrollBar();
     void LinkClicked(const QUrl &_url);
-    QWebElement Element(QString selector);
-    QWebElementCollection Elements(QString selector);
 };
 
 #endif //METRO_H

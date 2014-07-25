@@ -216,9 +216,9 @@ void Metro::aExec(QString str)
 */
 
 
-QString Metro::OpenFile()
+QString Metro::OpenFile(QString Dir, QString Filters)
 {
-    return QFileDialog::getOpenFileName(this,tr("Open File"));
+  return QFileDialog::getOpenFileName(this, tr("Open File"), Dir, Filters);
 }
 
 QString Metro::GetColor()
