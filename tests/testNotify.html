@@ -11,9 +11,9 @@ function init(){
 	MetroView.LinkFragment.connect(LinkHandle)
 	Notify = require.LoadModule("Notification")
 	Notify.Send("Test","Notification","dialog-information")
-	iTitle=MetroView.Element("#i_title")
-	iBody=MetroView.Element("#i_body")
-	iIcon=MetroView.Element("#i_icon")
+	iTitle=document.querySelector("#i_title")
+	iBody=document.querySelector("#i_body")
+	iIcon=document.querySelector("#i_icon")
 }
 
 function hit(){

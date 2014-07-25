@@ -324,13 +324,15 @@ void Metro::QtAlert(QString str)
 }
 
 
-QWebElementCollection Metro::Elements(QString selector){
-  return page()->mainFrame()->findAllElements(selector);
-}
-
-
-QWebElement Metro::Element(QString selector){
-  return page()->mainFrame()->findFirstElement(selector);
+QVariantMap Metro::ScrollBar(){
+  QVariantMap result, hl, vl;
+  hl["width"] = Mainview->page()->mainFrame()->scrollBarGeometry(Qt::Horizontal).width();
+  hl["height"] = Mainview->page()->mainFrame()->scrollBarGeometry(Qt::Horizontal).height();
+  vl["width"] = Mainview->page()->mainFrame()->scrollBarGeometry(Qt::Vertical).width();
+  vl["height"] = Mainview->page()->mainFrame()->scrollBarGeometry(Qt::Vertical).height();
+  result["horizontal"] = hl;
+  result["vertical"] = vl;
+  return result;
 }
 
 
