@@ -50,7 +50,7 @@ public slots:
     void aExec(QString str);
     */
     QString OpenFile(QString Dir, QString Filters);
-    QString GetColor();
+    QVariantMap GetColor(QVariantMap initial);
     QString GetFont(QString family,int size,QString weight,QString style);
     QVariantMap WinSizeHint();
     void WinTitle(QString title);

@@ -25,7 +25,7 @@ Metro::Metro(QWidget *parent)
     setWindowTitle("QtMetro - Cubway");
 //    setWindowFlags(Qt::WindowStaysOnBottomHint | Qt::FramelessWindowHint);
     if(QApplication::arguments().length() <= 1)
-        load(QUrl("http://erhandsome.org/subway"));
+        load(QUrl("http://github.com/EasternHeart/Cubway"));
     else
         load(QUrl(QApplication::arguments()[1]));
 //    showFullScreen();
@@ -37,7 +37,7 @@ Metro::Metro(QWidget *parent)
     connect(this, SIGNAL(linkClicked(const QUrl &)),
             this, SLOT(LinkClicked(const QUrl &)) );
     addObject("MetroView", this);
-    addObject("require",&_moduleLoader);
+    addObject("require", &_moduleLoader);
     Mainview = this;
 }
 Metro* Metro::Mainview = NULL;
@@ -159,8 +159,9 @@ void Metro::javaScriptWindowObjectCleared()
 
 QString Metro::GetArg(int n)
 {
-  if(n>QApplication::arguments().length()||n<0){
-    return "undefined";
+  if(n > QApplication::arguments().length()-1 || n < 0){
+    page() -> mainFrame() -> evaluateJavaScript("throw \"GetArg: No such argument\"");
+    return "";
   }else{
     return  QApplication::arguments()[n];
   }
@@ -221,17 +222,20 @@ QString Metro::OpenFile(QString Dir, QString Filters)
   return QFileDialog::getOpenFileName(this, tr("Open File"), Dir, Filters);
 }
 
-QString Metro::GetColor()
+QVariantMap Metro::GetColor(QVariantMap initial)
 {
-    QColor color = QColorDialog::getColor();
-    if(color.isValid()){
-    int r = color.red();
-    int g = color.green();
-    int b = color.blue();
-    return "rgb("+QString::number(r)+","+QString::number(g)+","+QString::number(b)+")";
-    }else{
-    return "-1";
-    }
+  QVariantMap result;
+  QColor Initial(initial["red"].toInt(), initial["green"].toInt(), initial["blue"].toInt());
+  QColor color = QColorDialog::getColor(Initial, this);
+  if(color.isValid()){
+    result["valid"] = true;
+    result["red"] = color.red();
+    result["green"] = color.green();
+    result["blue"] = color.blue();
+  }else{
+    result["valid"] = false;
+  }
+  return result;
 }
 
 QString Metro::GetFont(QString family,int size,QString weight,QString style)
