@@ -15,6 +15,10 @@
 #include "moduleloader.h"
 using namespace std;
 
+
+class QDir;
+
+
 class Metro : public QWebView
 {
     Q_OBJECT
@@ -28,6 +32,7 @@ protected:
     void keyReleaseEvent(QKeyEvent *ke);
     void resizeEvent(QResizeEvent * event); 
     void addObject(QString name, QObject *_object);
+    void initFolders();
     void doWebSettings();
 private:
     QMultiMap<QString, QString> MetaData;
@@ -35,6 +40,8 @@ private:
     QHash<QString, QObject*> _objects;
     ModuleLoader _moduleLoader;
     QHash<QString, bool> EventsEnabled;
+    QDir *userDir;
+    QDir *settingsDir;
 signals:
     void LinkFragment(QString _fragment);
 public slots:
@@ -63,6 +70,8 @@ public slots:
     void WinNormal();
     QVariantMap ScrollBar();
     void LinkClicked(const QUrl &_url);
+    QString getSettings(QString AppName);
+    void setSettings(QString AppName, QString str);
 };
 
 #endif //METRO_H

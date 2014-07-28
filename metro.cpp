@@ -1,26 +1,29 @@
 #include <QDebug>
-#include <QtGui/QApplication>
+#include <QApplication>
 #include <QDesktopWidget>
 #include <QStringList>
 #include <QByteArray>
 #include <QMultiMap>
 #include <QUrl>
-#include <QtGui/QDialog>
-#include <QtGui/QFileDialog>
-#include <QtGui/QColorDialog>
-#include <QtGui/QFontDialog>
-#include <QtGui/QKeyEvent>
+#include <QDialog>
+#include <QFileDialog>
+#include <QColorDialog>
+#include <QFontDialog>
+#include <QKeyEvent>
 #include <QProcess>
 #include <QPluginLoader>
 #include <QMessageBox>
-#include <QWebElement>
-#include <QWebElementCollection>
+#include <QDir>
+#include <QFile>
+#include <QIODevice>
+#include <QTextStream>
 #include "metro.h"
 #include "moduleloader.h"
 
 Metro::Metro(QWidget *parent)
     : QWebView(parent)
 {
+    this->initFolders();
     this->doWebSettings();
     setWindowTitle("QtMetro - Cubway");
 //    setWindowFlags(Qt::WindowStaysOnBottomHint | Qt::FramelessWindowHint);
@@ -42,10 +45,22 @@ Metro::Metro(QWidget *parent)
 }
 Metro* Metro::Mainview = NULL;
 
+
 Metro::~Metro()
 {
     Mainview = NULL;
 }
+
+
+void Metro::initFolders(){
+  userDir = new QDir(QDir::homePath() + "/.cubway");
+  if(!userDir->exists())
+    QDir::home().mkdir(".cubway");
+  settingsDir = new QDir(QDir::homePath() + "/.cubway/Settings");
+  if(!settingsDir->exists())
+    userDir -> mkdir("Settings");
+}
+
 
 void Metro::doWebSettings()
 {
@@ -392,3 +407,25 @@ void Metro::resizeEvent(QResizeEvent * event)
 }
 
 
+QString Metro::getSettings(QString AppName){
+  QString file = settingsDir->path() + "/" + AppName;
+  QFile f(file);
+  if (!f.open(QFile::ReadOnly | QFile::Text)){
+    qDebug() << "Error: Unable to open file '" << file << "' for read";
+    return "";
+  }
+  QTextStream in(&f);
+  return in.readAll();
+}
+
+
+void Metro::setSettings(QString AppName, QString str){
+  QString file = settingsDir->path() + "/" + AppName;
+  QFile settingsFile(file);
+  if(settingsFile.open(QIODevice::ReadWrite)){
+    QTextStream stream(&settingsFile);
+    stream << str;
+  }else{
+    qDebug() << "Error: Unable to open file '" << file << "' for write";
+  }
+}
