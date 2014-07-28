@@ -409,6 +409,9 @@ void Metro::resizeEvent(QResizeEvent * event)
 QString Metro::getSettings(QString AppName){
   QString file = settingsDir->path() + "/" + AppName;
   QFile f(file);
+  if(!f.exists()){
+    setSettings(AppName, "");
+  }
   if (!f.open(QFile::ReadOnly | QFile::Text)){
     qDebug() << "Error: Unable to open file '" << file << "' for read";
     return "";
