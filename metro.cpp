@@ -103,6 +103,9 @@ void Metro::HandleMetaData(){
   if(!MetaData.values("subway_fixed").isEmpty()){
     setFixedSize(this->size());
   }
+  if(!MetaData.values("subway_fullscreen").isEmpty()){
+    showFullScreen();
+  }
   /* Position */
   if(!MetaData.values("subway_position").isEmpty()){
     QString tmp_pos = MetaData.values("subway_position").at(0);
@@ -112,7 +115,13 @@ void Metro::HandleMetaData(){
     // elif Set by settings or last
   }
   /* Flag */
-  //
+  if(!MetaData.values("subway_flag").isEmpty()){
+    QStringList tmp_flag = MetaData.values("subway_flag");
+    if(tmp_flag[0] == "below")
+      setWindowFlags(this->windowFlags() | Qt::WindowStaysOnBottomHint);
+    else if(tmp_flag[0] == "above")
+      setWindowFlags(this->windowFlags() | Qt::WindowStaysOnTopHint);
+  }
   /* Scrollbar */
   if(!MetaData.values("subway_scrollbar").isEmpty()){
     QStringList tmp_scroll = MetaData.values("subway_scrollbar");
@@ -305,16 +314,6 @@ void Metro::WinPos(int x,int y)
     }else{
       Mainview->move(x,y);
     }
-}
-
-void Metro::WinFlag(QString flag)
-{
-    Qt::WindowFlags flags = 0;
-    flags = Qt::Window;
-    if(flag=="below") flags |= Qt::WindowStaysOnBottomHint;
-    if(flag=="above") flags |= Qt::WindowStaysOnTopHint;
-    Mainview->setWindowFlags(flags);
-    show();
 }
 
 void Metro::WinFullScreen()
