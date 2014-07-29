@@ -16,6 +16,7 @@
 using namespace std;
 
 
+class QFile;
 class QDir;
 
 
@@ -40,6 +41,8 @@ private:
     QHash<QString, QObject*> _objects;
     ModuleLoader _moduleLoader;
     QHash<QString, bool> EventsEnabled;
+    QFile *file;
+    QString dir;
     QDir *userDir;
     QDir *settingsDir;
 signals:
@@ -69,6 +72,7 @@ public slots:
     void WinNormal();
     QVariantMap ScrollBar();
     void LinkClicked(const QUrl &_url);
+    QString getFileDir();
     QString getSettings(QString AppName);
     void setSettings(QString AppName, QString str);
 };

@@ -15,6 +15,7 @@
 #include <QMessageBox>
 #include <QDir>
 #include <QFile>
+#include <QFileInfo>
 #include <QIODevice>
 #include <QTextStream>
 #include "metro.h"
@@ -27,10 +28,14 @@ Metro::Metro(QWidget *parent)
     this->doWebSettings();
     setWindowTitle("QtMetro - Cubway");
 //    setWindowFlags(Qt::WindowStaysOnBottomHint | Qt::FramelessWindowHint);
-    if(QApplication::arguments().length() <= 1)
+    if(QApplication::arguments().length() <= 1){
         load(QUrl("http://github.com/EasternHeart/Cubway"));
-    else
-        load(QUrl(QApplication::arguments()[1]));
+    }else{
+      this->file = new QFile(QApplication::arguments()[1]);
+      QFileInfo file_info(*this->file);
+      this->dir = file_info.absoluteDir().path();
+      load(QUrl(QApplication::arguments()[1]));
+    }
 //    showFullScreen();
 
     connect(this, SIGNAL(loadFinished(bool)),
@@ -403,6 +408,11 @@ void Metro::resizeEvent(QResizeEvent * event)
 	delete[] buf;
   }
   QWebView::resizeEvent(event);
+}
+
+
+QString Metro::getFileDir(){
+  return this->dir;
 }
 
 
