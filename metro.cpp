@@ -38,7 +38,7 @@ Metro::Metro(QWidget *parent)
     }
 //    showFullScreen();
 
-    connect(this, SIGNAL(loadFinished(bool)),
+    connect(page()->mainFrame(), SIGNAL(loadFinished(bool)),
             this, SLOT(HandleMetaData()) );
     connect(page()->mainFrame(), SIGNAL(javaScriptWindowObjectCleared()),
             this, SLOT(javaScriptWindowObjectCleared()) );
