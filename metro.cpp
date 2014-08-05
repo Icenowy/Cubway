@@ -435,6 +435,7 @@ void Metro::setSettings(QString AppName, QString str){
   QString file = settingsDir->path() + "/" + AppName;
   QFile settingsFile(file);
   if(settingsFile.open(QIODevice::ReadWrite)){
+    settingsFile.resize(0);
     QTextStream stream(&settingsFile);
     stream << str;
   }else{
