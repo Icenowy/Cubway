@@ -1,11 +1,15 @@
+#ifndef _CUBWAY_X11_X11PLUGIN_H
+#define _CUBWAY_X11_X11PLUGIN_H
+
 #include <QObject>
 #include <QString>
 #include <QVariantList>
 #include "xfitman.h"
 
-class X11 : public QObject
+class X11Toolkit : public QObject
 {
     Q_OBJECT
+    Q_PLUGIN_METADATA(IID "org.subway.Cubway.X11Plugin")
 private:
     Window toWindow(QString _wid);
     QString fromWindow(Window _wid);
@@ -18,3 +22,5 @@ public slots:
     QString getWindowTitle(QString _wid);
     void Test();
 };
+
+#endif

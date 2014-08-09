@@ -24,7 +24,7 @@
 
 #include "razornotification.h"
 #include "razornotification_p.h"
-#include <QtGui/QMessageBox>
+#include <QMessageBox>
 #include <QDebug>
 
 RazorNotification::RazorNotification(const QString& summary, QObject* parent) :

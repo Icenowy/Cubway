@@ -1,5 +1,5 @@
 TEMPLATE = lib
-QT += dbus
+QT += dbus widgets
 TARGET = Notification
 DEPENDPATH += .
 INCLUDEPATH += .

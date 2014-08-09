@@ -4,10 +4,10 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
-QT       += webkit
+QT       += core gui widgets
+QT       += webkit webkitwidgets
 
-TARGET = QtMetro
+TARGET = cubway
 TEMPLATE = app
 
 DEFINES += "CUBWAY_DEBUG=1"

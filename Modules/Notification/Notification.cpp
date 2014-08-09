@@ -15,4 +15,4 @@ void NotificationModule::Send(QString title, QString body, QString icon)
   RazorNotification::notify(title,body,icon);
 }
 
-Q_EXPORT_PLUGIN2(Notification, NotificationModule)
+//Q_EXPORT_PLUGIN2(Notification, NotificationModule)

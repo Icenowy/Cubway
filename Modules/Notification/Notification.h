@@ -7,6 +7,7 @@
 class NotificationModule: public QObject
 {
     Q_OBJECT
+    Q_PLUGIN_METADATA(IID "org.subway.Cubway.Notification")
 public slots:
     void Send(QString title, QString body, QString icon);
 };

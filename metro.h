@@ -2,17 +2,28 @@
 #define METRO_H
 
 #include <iostream>
-#include <QtGui/QWidget>
+
+// QtGui
+#include <QKeyEvent>
+
+// QtWidget
+#include <QWidget>
+
+// QtWebkit/Widget
+#include <QWebSettings>
+#include <QWebFrame>
+#include <QWebElement>
+#include <QWebView>
+
+//QtCore
 #include <QSize>
-#include <QtWebKit/QWebSettings>
-#include <QtWebKit/QWebFrame>
-#include <QtWebKit/QWebElement>
-#include <QtWebKit/QWebView>
-#include <QtGui/QKeyEvent>
 #include <QMultiMap>
 #include <QVariant>
 #include <QHash>
+#include <QScopedPointer>
+
 #include "moduleloader.h"
+
 using namespace std;
 
 
@@ -41,10 +52,10 @@ private:
     QHash<QString, QObject*> _objects;
     ModuleLoader _moduleLoader;
     QHash<QString, bool> EventsEnabled;
-    QFile *file;
-    QString dir;
-    QDir *userDir;
-    QDir *settingsDir;
+    QScopedPointer<QFile> appFile;
+    QString appDirPath;
+    QScopedPointer<QDir> userDir;
+    QScopedPointer<QDir> settingsDir;
 signals:
     void LinkFragment(QString _fragment);
 public slots:

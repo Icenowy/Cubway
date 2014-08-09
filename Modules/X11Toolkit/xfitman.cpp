@@ -28,11 +28,15 @@
 
 
 
-#include <QtGui/QX11Info>
-#include <QtCore/QList>
-#include <QtGui/QApplication>
-#include <QtCore/QDebug>
-#include <QtGui/QDesktopWidget>
+#include <QX11Info>
+
+#include <QList>
+#include <QDebug>
+
+#include <QApplication>
+#include <QDesktopWidget>
+#include <QWidget>
+#include <QIcon>
 
 #include <stdint.h>
 #include "xfitman.h"
@@ -44,8 +48,6 @@
 #include <X11/Xatom.h>
 #include <X11/Xlib.h>
 
-#include <QtGui/QWidget>
-#include <QtGui/QIcon>
 /**
  * @file xfitman.cpp
  * @brief implements class Xfitman
@@ -393,7 +395,7 @@ int XfitMan::clientMessage(Window _wid, Atom _msg,
     msg.data.l[2] = data2;
     msg.data.l[3] = data3;
     msg.data.l[4] = data4;
-    if (XSendEvent(QX11Info::display(), root, FALSE, (SubstructureRedirectMask | SubstructureNotifyMask) , (XEvent *) &msg) == Success)
+    if (XSendEvent(QX11Info::display(), root, false, (SubstructureRedirectMask | SubstructureNotifyMask) , (XEvent *) &msg) == Success)
         return EXIT_SUCCESS;
     else
         return EXIT_FAILURE;
@@ -817,7 +819,7 @@ QString XfitMan::debugWindow(Window wnd)
     unsigned long type, length, rest, *data;
     length=0;
     if (XGetWindowProperty(QX11Info::display(), wnd, XInternAtom(QX11Info::display(), "_NET_WM_WINDOW_TYPE", False),
-                           0, 4096, FALSE, AnyPropertyType, &type, &format,
+                           0, 4096, false, AnyPropertyType, &type, &format,
                            &length, &rest,(unsigned char**) &data) == Success)
     {
         for (unsigned int i = 0; i < length; i++)

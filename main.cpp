@@ -1,6 +1,8 @@
-#include <QtGui/QApplication>
-#include <QtGui/QDesktopWidget>
+#include <QApplication>
+#include <QDesktopWidget>
+
 #include <QWebInspector>
+
 #include "metro.h"
 
 int main(int argc, char *argv[])

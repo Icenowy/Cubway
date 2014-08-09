@@ -18,6 +18,7 @@
 #include <QFileInfo>
 #include <QIODevice>
 #include <QTextStream>
+
 #include "metro.h"
 #include "moduleloader.h"
 
@@ -26,15 +27,15 @@ Metro::Metro(QWidget *parent)
 {
     this->initFolders();
     this->doWebSettings();
-    setWindowTitle("QtMetro - Cubway");
+    setWindowTitle("Cubway");
 //    setWindowFlags(Qt::WindowStaysOnBottomHint | Qt::FramelessWindowHint);
     if(QApplication::arguments().length() <= 1){
         load(QUrl("http://github.com/EasternHeart/Cubway"));
     }else{
-      this->file = new QFile(QApplication::arguments()[1]);
-      QFileInfo file_info(*this->file);
-      this->dir = file_info.absoluteDir().path();
-      load(QUrl(QApplication::arguments()[1]));
+      this->appFile.reset(new QFile(QApplication::arguments()[1]));
+      QFileInfo file_info(*this->appFile);
+      this->appDirPath = file_info.absoluteDir().path();
+      load(QUrl::fromLocalFile(file_info.absoluteFilePath()));
     }
 //    showFullScreen();
 
@@ -58,10 +59,10 @@ Metro::~Metro()
 
 
 void Metro::initFolders(){
-  userDir = new QDir(QDir::homePath() + "/.cubway");
+  userDir.reset(new QDir(QDir::homePath() + "/.cubway"));
   if(!userDir->exists())
     QDir::home().mkdir(".cubway");
-  settingsDir = new QDir(QDir::homePath() + "/.cubway/Settings");
+  settingsDir.reset(new QDir(QDir::homePath() + "/.cubway/Settings"));
   if(!settingsDir->exists())
     userDir -> mkdir("Settings");
 }
@@ -412,7 +413,7 @@ void Metro::resizeEvent(QResizeEvent * event)
 
 
 QString Metro::getFileDir(){
-  return this->dir;
+  return this->appDirPath;
 }
 
 
