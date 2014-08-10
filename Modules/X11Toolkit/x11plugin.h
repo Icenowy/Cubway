@@ -2,6 +2,7 @@
 #define _CUBWAY_X11_X11PLUGIN_H
 
 #include <QObject>
+#include <QtPlugin>
 #include <QString>
 #include <QVariantList>
 #include "xfitman.h"
