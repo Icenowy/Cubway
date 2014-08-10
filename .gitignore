@@ -10,6 +10,7 @@
 *.dll
 *.dylib
 QtMetro
+cubway
 
 # Qt-es
 
