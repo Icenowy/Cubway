@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QDir>
 #include <QString>
+#include <QHash>
 
 class ModuleLoader : public QObject
 {
@@ -14,6 +15,7 @@ public:
     {}
     Q_INVOKABLE QObject* LoadModule(QString name);
 private:
+    QHash<QString, QObject *> m_builtin;
     QDir _dirModule;
     QString getModulePath(QString name);
     bool isBuiltin(QString name);

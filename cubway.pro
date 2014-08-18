@@ -13,10 +13,12 @@ TEMPLATE = app
 DEFINES += "CUBWAY_DEBUG=1"
 
 SOURCES += main.cpp\
-        metro.cpp \
+        View.cpp \
+        Controller.cpp \
         moduleloader.cpp\
         MFile.cpp
 
-HEADERS  += metro.h \
+HEADERS  += View.h \
+        Controller.h\
         moduleloader.h\
         MFile.h

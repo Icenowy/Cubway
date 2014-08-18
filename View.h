@@ -1,5 +1,5 @@
-#ifndef METRO_H
-#define METRO_H
+#ifndef CUBWAY_VIEW_H
+#define CUBWAY_VIEW_H
 
 #include <iostream>
 
@@ -22,6 +22,7 @@
 #include <QHash>
 #include <QScopedPointer>
 
+#include "common.h"
 #include "moduleloader.h"
 
 using namespace std;
@@ -30,14 +31,15 @@ using namespace std;
 class QFile;
 class QDir;
 
+CUBWAY_NS_BEGIN
 
-class Metro : public QWebView
+class View : public QWebView
 {
     Q_OBJECT
 public:
-    Metro(QWidget *parent = 0);
-    ~Metro();
-    static Metro *Mainview;
+    View (QWidget *parent = 0);
+    ~View ();
+    static View *Mainview;
 protected:
 //    lua_State *lua;
     void keyPressEvent(QKeyEvent *ke);
@@ -87,5 +89,6 @@ public slots:
     QString getSettings(QString AppName);
     void setSettings(QString AppName, QString str);
 };
+CUBWAY_NS_END
 
-#endif //METRO_H
+#endif //CUBWAY_VIEW_H

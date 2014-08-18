@@ -19,10 +19,12 @@
 #include <QIODevice>
 #include <QTextStream>
 
-#include "metro.h"
+#include "View.h"
 #include "moduleloader.h"
 
-Metro::Metro(QWidget *parent)
+CUBWAY_NS_BEGIN
+
+View::View(QWidget *parent)
     : QWebView(parent)
 {
     this->initFolders();
@@ -49,16 +51,16 @@ Metro::Metro(QWidget *parent)
     addObject("require", &_moduleLoader);
     Mainview = this;
 }
-Metro* Metro::Mainview = NULL;
+View * View::Mainview = NULL;
 
 
-Metro::~Metro()
+View::~View()
 {
     Mainview = NULL;
 }
 
 
-void Metro::initFolders(){
+void View::initFolders(){
   userDir.reset(new QDir(QDir::homePath() + "/.cubway"));
   if(!userDir->exists())
     QDir::home().mkdir(".cubway");
@@ -68,7 +70,7 @@ void Metro::initFolders(){
 }
 
 
-void Metro::doWebSettings()
+void View::doWebSettings()
 {
     QWebSettings* defaultSettings = QWebSettings::globalSettings();  
     QWebSettings::enablePersistentStorage("");  
@@ -86,7 +88,7 @@ void Metro::doWebSettings()
  
 }
 
-void Metro::HandleMetaData(){
+void View::HandleMetaData(){
   /* Get data */
   MetaData = page()->mainFrame()->metaData();
 
@@ -171,13 +173,13 @@ void Metro::HandleMetaData(){
 }
 
 
-void Metro::addObject(QString name, QObject *_object){
+void View::addObject(QString name, QObject *_object){
   page() -> mainFrame() -> addToJavaScriptWindowObject(name, _object);
   _objects[name] = _object;
 }
 
 
-void Metro::javaScriptWindowObjectCleared()
+void View::javaScriptWindowObjectCleared()
 {
   QHashIterator<QString, QObject*> i(_objects);
   while (i.hasNext()) {
@@ -187,7 +189,7 @@ void Metro::javaScriptWindowObjectCleared()
 }
 
 
-QString Metro::GetArg(int n)
+QString View::GetArg(int n)
 {
   if(n > QApplication::arguments().length()-1 || n < 0){
     page() -> mainFrame() -> evaluateJavaScript("throw \"GetArg: No such argument\"");
@@ -197,13 +199,13 @@ QString Metro::GetArg(int n)
   }
 }
 
-int Metro::GetArgsLen()
+int View::GetArgsLen()
 {
   return  QApplication::arguments().length();
 }
 
 
-void Metro::Echo(QString str)
+void View::Echo(QString str)
 {
 qDebug()<<str;
 }
@@ -211,7 +213,7 @@ qDebug()<<str;
 
 // 執行系統指令：已廢棄
 /*
-QString Metro::System(QString str)
+QString View::System(QString str)
 {
     QProcess *qp = new QProcess;
     qp->start(str);
@@ -222,7 +224,7 @@ QString Metro::System(QString str)
     QByteArray result = qp->readAll();
     return QString(result);
 }
-QString Metro::Exec(QString str,QString args,int wait)
+QString View::Exec(QString str,QString args,int wait)
 {
     QProcess *qp = new QProcess;
     if (!args.isNull()||!args.isEmpty()){
@@ -239,7 +241,7 @@ QString Metro::Exec(QString str,QString args,int wait)
     return QString(result);
     } else return "-1";
 }
-void Metro::aExec(QString str)
+void View::aExec(QString str)
 {
     QProcess *qp = new QProcess;
     qp->start(str);
@@ -247,12 +249,12 @@ void Metro::aExec(QString str)
 */
 
 
-QString Metro::OpenFile(QString Dir, QString Filters)
+QString View::OpenFile(QString Dir, QString Filters)
 {
   return QFileDialog::getOpenFileName(this, tr("Open File"), Dir, Filters);
 }
 
-QVariantMap Metro::GetColor(QVariantMap initial)
+QVariantMap View::GetColor(QVariantMap initial)
 {
   QVariantMap result;
   QColor Initial(initial["red"].toInt(), initial["green"].toInt(), initial["blue"].toInt());
@@ -268,7 +270,7 @@ QVariantMap Metro::GetColor(QVariantMap initial)
   return result;
 }
 
-QString Metro::GetFont(QString family,int size,QString weight,QString style)
+QString View::GetFont(QString family,int size,QString weight,QString style)
 {
     bool ok;
     bool _style;
@@ -294,17 +296,17 @@ QString Metro::GetFont(QString family,int size,QString weight,QString style)
 }
 
 
-void Metro::WinTitle(QString title)
+void View::WinTitle(QString title)
 {
     Mainview->setWindowTitle(title);
 }
 
-void Metro::WinResize(int w,int h)
+void View::WinResize(int w,int h)
 {
     Mainview->resize(w,h);
 }
 
-QVariantMap Metro::WinSizeHint(){
+QVariantMap View::WinSizeHint(){
   QVariantMap sizeHint;
   //SizeHint << QString::number(Mainview->page()->mainFrame()->contentsSize().width()) << QString::number(Mainview->page()->mainFrame()->contentsSize().height());
   sizeHint["width"]=Mainview->page()->mainFrame()->contentsSize().width();
@@ -312,7 +314,7 @@ QVariantMap Metro::WinSizeHint(){
   return sizeHint;
 }
 
-void Metro::WinPos(int x,int y)
+void View::WinPos(int x,int y)
 {
     QDesktopWidget *desktop = QApplication::desktop();
     if(x==-1&&y==-1){
@@ -322,33 +324,33 @@ void Metro::WinPos(int x,int y)
     }
 }
 
-void Metro::WinFullScreen()
+void View::WinFullScreen()
 {
     Mainview->showFullScreen();
 }
 
-void Metro::WinMaximize()
+void View::WinMaximize()
 {
     Mainview->showMaximized();
 }
 
-void Metro::WinMinimize()
+void View::WinMinimize()
 {
     Mainview->showMinimized();
 }
 
-void Metro::WinNormal()
+void View::WinNormal()
 {
     Mainview->showNormal();
 }
 
-void Metro::QtAlert(QString str)
+void View::QtAlert(QString str)
 {
     QMessageBox::information(this,"QtAlert",str);
 }
 
 
-QVariantMap Metro::ScrollBar(){
+QVariantMap View::ScrollBar(){
   QVariantMap result, hl, vl;
   hl["width"] = Mainview->page()->mainFrame()->scrollBarGeometry(Qt::Horizontal).width();
   hl["height"] = Mainview->page()->mainFrame()->scrollBarGeometry(Qt::Horizontal).height();
@@ -360,14 +362,14 @@ QVariantMap Metro::ScrollBar(){
 }
 
 
-void Metro::LinkClicked(const QUrl &_url){
+void View::LinkClicked(const QUrl &_url){
   if(_url.hasFragment())
     emit LinkFragment(_url.fragment());
 }
 
 // Events
 
-void Metro::keyPressEvent(QKeyEvent *ke)
+void View::keyPressEvent(QKeyEvent *ke)
 {
   if(EventsEnabled["onKeyPressEvent"]==true){
     char *buf;
@@ -381,7 +383,7 @@ void Metro::keyPressEvent(QKeyEvent *ke)
   QWebView::keyPressEvent(ke);
 }
 
-void Metro::keyReleaseEvent(QKeyEvent *ke)
+void View::keyReleaseEvent(QKeyEvent *ke)
 {
   if(EventsEnabled["onKeyReleaseEvent"]==true){
     char *buf;
@@ -395,7 +397,7 @@ void Metro::keyReleaseEvent(QKeyEvent *ke)
   QWebView::keyPressEvent(ke);
 }
 
-void Metro::resizeEvent(QResizeEvent * event)
+void View::resizeEvent(QResizeEvent * event)
 {
   if(EventsEnabled["onResizeEvent"]==true){
 	char *buf;
@@ -412,12 +414,12 @@ void Metro::resizeEvent(QResizeEvent * event)
 }
 
 
-QString Metro::getFileDir(){
+QString View::getFileDir(){
   return this->appDirPath;
 }
 
 
-QString Metro::getSettings(QString AppName){
+QString View::getSettings(QString AppName){
   QString file = settingsDir->path() + "/" + AppName;
   QFile f(file);
   if(!f.exists()){
@@ -432,7 +434,7 @@ QString Metro::getSettings(QString AppName){
 }
 
 
-void Metro::setSettings(QString AppName, QString str){
+void View::setSettings(QString AppName, QString str){
   QString file = settingsDir->path() + "/" + AppName;
   QFile settingsFile(file);
   if(settingsFile.open(QIODevice::ReadWrite)){
@@ -443,3 +445,5 @@ void Metro::setSettings(QString AppName, QString str){
     qDebug() << "Error: Unable to open file '" << file << "' for write";
   }
 }
+
+CUBWAY_NS_END
