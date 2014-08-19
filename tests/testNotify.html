@@ -8,8 +8,8 @@
 <script type="text/javascript">
 
 function init(){
-	MetroView.LinkFragment.connect(LinkHandle)
-	Notify = require.LoadModule("Notification")
+	Cubway.view.LinkFragment.connect(LinkHandle)
+	Notify = Cubway.require.LoadModule("Notification")
 	Notify.Send("Test","Notification","dialog-information")
 	iTitle=document.querySelector("#i_title")
 	iBody=document.querySelector("#i_body")

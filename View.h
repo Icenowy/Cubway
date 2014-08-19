@@ -40,24 +40,24 @@ public:
     View (QWidget *parent = 0);
     ~View ();
     static View *Mainview;
+    void addObject(QString name, QObject *_object);
 protected:
 //    lua_State *lua;
     void keyPressEvent(QKeyEvent *ke);
     void keyReleaseEvent(QKeyEvent *ke);
     void resizeEvent(QResizeEvent * event); 
-    void addObject(QString name, QObject *_object);
     void initFolders();
     void doWebSettings();
 private:
     QMultiMap<QString, QString> MetaData;
     QString InitFunction;
     QHash<QString, QObject*> _objects;
-    ModuleLoader _moduleLoader;
+    //ModuleLoader _moduleLoader;
     QHash<QString, bool> EventsEnabled;
-    QScopedPointer<QFile> appFile;
-    QString appDirPath;
-    QScopedPointer<QDir> userDir;
-    QScopedPointer<QDir> settingsDir;
+  QScopedPointer<QFile> appFile;
+  QString appDirPath;
+  QScopedPointer<QDir> userDir;
+  QScopedPointer<QDir> settingsDir;
 signals:
     void LinkFragment(QString _fragment);
 public slots:

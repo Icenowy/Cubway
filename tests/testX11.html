@@ -16,7 +16,7 @@ function getWinList(){
   document.getElementById("result").innerHTML=aList
 }
 function init(){
-  X11 = require.LoadModule("X11Toolkit");
+  X11 = Cubway.require.LoadModule("X11Toolkit");
   var win = X11.getActiveWindow();
   //X11.moveWindowToDesktop(win,0);
   alert(X11.getWindowDesktop(win));

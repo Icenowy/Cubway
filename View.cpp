@@ -47,8 +47,8 @@ View::View(QWidget *parent)
             this, SLOT(javaScriptWindowObjectCleared()) );
     connect(this, SIGNAL(linkClicked(const QUrl &)),
             this, SLOT(LinkClicked(const QUrl &)) );
-    addObject("MetroView", this);
-    addObject("require", &_moduleLoader);
+    //addObject("MetroView", this);
+    //addObject("require", &_moduleLoader);
     Mainview = this;
 }
 View * View::Mainview = NULL;
