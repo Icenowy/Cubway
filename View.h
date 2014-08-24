@@ -33,6 +33,8 @@ class QDir;
 
 CUBWAY_NS_BEGIN
 
+class Controller;
+
 class View : public QWebView
 {
     Q_OBJECT
@@ -40,7 +42,6 @@ public:
     View (QWidget *parent = 0);
     ~View ();
     static View *Mainview;
-    void addObject(QString name, QObject *_object);
 protected:
 //    lua_State *lua;
     void keyPressEvent(QKeyEvent *ke);
@@ -48,6 +49,7 @@ protected:
     void resizeEvent(QResizeEvent * event); 
     void initFolders();
     void doWebSettings();
+//    void addObject(QString name, QObject *_object);
 private:
     QMultiMap<QString, QString> MetaData;
     QString InitFunction;
@@ -62,16 +64,11 @@ signals:
     void LinkFragment(QString _fragment);
 public slots:
     void HandleMetaData();
-    void javaScriptWindowObjectCleared();
+//    void javaScriptWindowObjectCleared();
     QString GetArg(int n);
     int GetArgsLen();
     void QtAlert(QString str);
     void Echo(QString str);
-    /*
-    QString System(QString str);
-    QString Exec(QString str,QString args,int wait);
-    void aExec(QString str);
-    */
     QString OpenFile(QString Dir, QString Filters);
     QVariantMap GetColor(QVariantMap initial);
     QString GetFont(QString family,int size,QString weight,QString style);
@@ -88,6 +85,7 @@ public slots:
     QString getFileDir();
     QString getSettings(QString AppName);
     void setSettings(QString AppName, QString str);
+    friend class Controller;
 };
 CUBWAY_NS_END
 

@@ -11,6 +11,7 @@ TARGET = cubway
 TEMPLATE = app
 
 DEFINES += "CUBWAY_DEBUG=1"
+CONFIG += c++11
 
 SOURCES += main.cpp\
         View.cpp \

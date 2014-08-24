@@ -43,8 +43,8 @@ View::View(QWidget *parent)
 
     connect(page()->mainFrame(), SIGNAL(loadFinished(bool)),
             this, SLOT(HandleMetaData()) );
-    connect(page()->mainFrame(), SIGNAL(javaScriptWindowObjectCleared()),
-            this, SLOT(javaScriptWindowObjectCleared()) );
+//    connect(page()->mainFrame(), SIGNAL(javaScriptWindowObjectCleared()),
+ //           this, SLOT(javaScriptWindowObjectCleared()) );
     connect(this, SIGNAL(linkClicked(const QUrl &)),
             this, SLOT(LinkClicked(const QUrl &)) );
     //addObject("MetroView", this);
@@ -93,29 +93,29 @@ void View::HandleMetaData(){
   MetaData = page()->mainFrame()->metaData();
 
   /* Title */
-  if(!MetaData.values("subway_title").isEmpty())
+  if(MetaData.contains("subway_title"))
     setWindowTitle(MetaData.values("subway_title").at(0));
   else
     setWindowTitle(page()->mainFrame()->title());
   /* Size */
-  if(!MetaData.values("subway_size").isEmpty()){
+  if(MetaData.contains("subway_size")){
     QString tmp_size = MetaData.values("subway_size").at(0);
     if(tmp_size=="auto"){
       resize(this->page()->mainFrame()->contentsSize());
     }else{
-    QStringList sizeXY = tmp_size.split("x");
-    if(sizeXY.size()==2)
-      resize(sizeXY[0].toInt(),sizeXY[1].toInt());
+      QStringList sizeXY = tmp_size.split("x");
+      if(sizeXY.size()==2)
+        resize(sizeXY[0].toInt(),sizeXY[1].toInt());
     }
   }
-  if(!MetaData.values("subway_fixed").isEmpty()){
+  if(MetaData.contains("subway_fixed")){
     setFixedSize(this->size());
   }
-  if(!MetaData.values("subway_fullscreen").isEmpty()){
+  if(MetaData.contains("subway_fullscreen")){
     showFullScreen();
   }
   /* Position */
-  if(!MetaData.values("subway_position").isEmpty()){
+  if(MetaData.contains("subway_position")){
     QString tmp_pos = MetaData.values("subway_position").at(0);
     if(tmp_pos=="center"||tmp_pos=="centre"){
       WinPos(-1,-1);
@@ -123,7 +123,7 @@ void View::HandleMetaData(){
     // elif Set by settings or last
   }
   /* Flag */
-  if(!MetaData.values("subway_flag").isEmpty()){
+  if(MetaData.contains("subway_flag")){
     QStringList tmp_flag = MetaData.values("subway_flag");
     if(tmp_flag[0] == "below")
       setWindowFlags(this->windowFlags() | Qt::WindowStaysOnBottomHint);
@@ -131,7 +131,7 @@ void View::HandleMetaData(){
       setWindowFlags(this->windowFlags() | Qt::WindowStaysOnTopHint);
   }
   /* Scrollbar */
-  if(!MetaData.values("subway_scrollbar").isEmpty()){
+  if(MetaData.contains("subway_scrollbar")){
     QStringList tmp_scroll = MetaData.values("subway_scrollbar");
     for(int i=0; i<tmp_scroll.size(); i++){
       Qt::ScrollBarPolicy val;
@@ -150,13 +150,13 @@ void View::HandleMetaData(){
     }
   }
   /* Events */
-  if(!MetaData.values("subway_events").isEmpty()){
+  if(MetaData.contains("subway_events")){
     QStringList tmp_events = MetaData.values("subway_events").at(0).split(" ");
     for(int i=0; i<tmp_events.size(); i++)
       EventsEnabled[tmp_events[i]] = true;
   }
   /* Init Function */
-  if(!MetaData.values("subway_init").isEmpty()){
+  if(MetaData.contains("subway_init")){
     InitFunction = MetaData.values("subway_init").at(0);
     qDebug() << "InitFunction :" << InitFunction;
   }else{ qDebug() << "No InitFunction"; }
@@ -166,19 +166,18 @@ void View::HandleMetaData(){
   }
 
   /* Show */
-  if(!MetaData.values("subway_fullscreen").isEmpty())
+  if(MetaData.contains("subway_fullscreen"))
     showFullScreen();
   else
     show();
 }
 
 
+#if 0
 void View::addObject(QString name, QObject *_object){
   page() -> mainFrame() -> addToJavaScriptWindowObject(name, _object);
   _objects[name] = _object;
 }
-
-
 void View::javaScriptWindowObjectCleared()
 {
   QHashIterator<QString, QObject*> i(_objects);
@@ -187,6 +186,7 @@ void View::javaScriptWindowObjectCleared()
     page() -> mainFrame() -> addToJavaScriptWindowObject(i.key(),i.value());
   }
 }
+#endif
 
 
 QString View::GetArg(int n)
