@@ -1,0 +1,8 @@
+TEMPLATE = lib
+QT += dbus
+TARGET = DBus
+DEPENDPATH += .
+INCLUDEPATH += .
+
+HEADERS += DBus.h
+SOURCES += DBus.cpp
