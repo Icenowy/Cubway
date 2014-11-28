@@ -3,6 +3,8 @@
 
 #include <QObject>
 
+#include <functional>
+
 #include "common.h"
 #include "View.h"
 #include "moduleloader.h"
@@ -21,6 +23,7 @@ public:
     }
   void addObject (const QString &name, QObject *obj);
   void evaluateJavaScript (const QString &source);
+  using url_loader_f = std::function<void (const QUrl &url)>;
 protected:
   void init_view ();
   void handle_aliases ();
@@ -30,6 +33,7 @@ private:
   View m_view;
   ModuleLoader m_moduleLoader;
   QHash<QString,QString> m_aliases;
+  QHash<const QString, url_loader_f> m_url_loaders;
 };
 
 CUBWAY_NS_END

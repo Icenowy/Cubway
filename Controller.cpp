@@ -1,6 +1,7 @@
 #include "Controller.h"
 
 #include <QVariant>
+#include <QDebug>
 
 CUBWAY_NS_BEGIN
 
@@ -28,6 +29,13 @@ Controller::init_view ()
            SIGNAL (javaScriptWindowObjectCleared ()),
            this,
            SLOT (handle_javaScriptWindowObjectCleared ()));
+  connect (&m_view, &QWebView::linkClicked, [this](const QUrl& url)
+  {
+    if (m_url_loaders.contains (url.scheme ()))
+      m_url_loaders[url.scheme ()](url);
+    else
+      this -> view () -> load (url);
+  });
 }
 
 void
@@ -35,7 +43,7 @@ Controller::handle_javaScriptWindowObjectCleared ()
 {
   m_view.page () -> mainFrame ()
     -> addToJavaScriptWindowObject ("Cubway", this);
-  handle_aliases();
+  handle_aliases ();
 }
 
 void
@@ -57,5 +65,6 @@ Controller::handle_aliases ()
       ++ia;
     }
 }
+
 
 CUBWAY_NS_END
