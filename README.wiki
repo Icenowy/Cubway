@@ -1,9 +1,0 @@
-== Cubway ==
-
-Documentation hasn't been written yet...
-
-=== TODO ===
-* Turn into a modularity structure of Cubway Controller/View
-  and Subway environment.
-* Improve so that Subway environment can use, such as DBus interface,
-  file management.
