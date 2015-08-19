@@ -43,48 +43,35 @@ public:
     ~View ();
     static View *Mainview;
 protected:
-//    lua_State *lua;
     void keyPressEvent(QKeyEvent *ke);
     void keyReleaseEvent(QKeyEvent *ke);
-    void resizeEvent(QResizeEvent * event); 
-    void initFolders();
+    void resizeEvent(QResizeEvent *event);
     void doWebSettings();
-//    void addObject(QString name, QObject *_object);
 private:
     QMultiMap<QString, QString> MetaData;
-    QString InitFunction;
     QHash<QString, QObject*> _objects;
-    //ModuleLoader _moduleLoader;
     QHash<QString, bool> EventsEnabled;
-  QScopedPointer<QFile> appFile;
-  QString appDirPath;
-  QScopedPointer<QDir> userDir;
-  QScopedPointer<QDir> settingsDir;
-signals:
-    void LinkFragment(QString _fragment);
+    QScopedPointer<QFile> appFile;
+    QString appDirPath;
+    QScopedPointer<QDir> userDir;
+    QScopedPointer<QDir> settingsDir;
 public slots:
     void HandleMetaData();
-//    void javaScriptWindowObjectCleared();
-    QString GetArg(int n);
-    int GetArgsLen();
-    void QtAlert(QString str);
-    void Echo(QString str);
-    QString OpenFile(QString Dir, QString Filters);
-    QVariantMap GetColor(QVariantMap initial);
-    QString GetFont(QString family,int size,QString weight,QString style);
-    QVariantMap WinSizeHint();
-    void WinTitle(QString title);
-    void WinResize(int w,int h);
-    void WinPos(int x,int y);
-    void WinFullScreen();
-    void WinMaximize();
-    void WinMinimize();
-    void WinNormal();
-    QVariantMap ScrollBar();
-    void LinkClicked(const QUrl &_url);
-    QString getFileDir();
-    QString getSettings(QString AppName);
-    void setSettings(QString AppName, QString str);
+    QString getArg(int n);
+    int getArgsLen();
+    void msgbox(QString title, QString content);
+    void echo(QString str);
+    QString fileDialog(QString dir, QString filters);
+    QVariantMap winSizeHint();
+    void winTitle(QString title);
+    void winResize(int w,int h);
+    void winCenter();
+    void winPos(int x,int y);
+    void winFullScreen();
+    void winMaximize();
+    void winMinimize();
+    void winNormal();
+    QVariantMap scrollBarInfo();
     friend class Controller;
 };
 CUBWAY_NS_END

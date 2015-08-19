@@ -13,7 +13,7 @@ public:
     ModuleLoader()
       : _dirModule(QDir::current().filePath("Modules"))
     {}
-    Q_INVOKABLE QObject* LoadModule(QString name);
+    Q_INVOKABLE QObject* load(QString name);
 private:
     QHash<QString, QObject *> m_builtin;
     QDir _dirModule;

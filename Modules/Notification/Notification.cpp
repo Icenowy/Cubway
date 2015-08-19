@@ -3,7 +3,7 @@
 #include "Notification.h"
 #include "razornotification.h"
 
-void NotificationModule::Send(QString title, QString body, QString icon) 
+void NotificationModule::send(QString title, QString body, QString icon) 
 {
   /* Code from ArchWiki */
 //  notify_init (QString("subway_notify_"+title).toStdString().c_str());

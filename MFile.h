@@ -10,10 +10,9 @@ class MFile : public QObject
 {
     Q_OBJECT
 public slots:
-    bool Exists(QString file);
-    QString Read(QString file);
-    void XdgOpen(QString file);
-    QStringList List(QString dir);
+    bool exists(QString file);
+    QString read(QString file);
+    QStringList list(QString dir);
 };
 
 #endif

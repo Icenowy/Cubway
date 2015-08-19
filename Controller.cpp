@@ -10,20 +10,17 @@ Controller::Controller ()
   init_view ();
 }
 
+/*
 void
 Controller::addObject (const QString &name, QObject *obj)
 {
   setProperty (name.toLocal8Bit (), QVariant::fromValue (obj));
 }
+*/
 
 void
 Controller::init_view ()
 {
-  this->addObject ("require", &m_moduleLoader);
-#ifdef CUBWAY_DEBUG
-  m_aliases ["MetroView"] = "Cubway.view";
-  m_aliases ["require"] = "Cubway.require";
-#endif
   handle_javaScriptWindowObjectCleared();
   connect (m_view.page()->mainFrame(),
            SIGNAL (javaScriptWindowObjectCleared ()),
@@ -42,7 +39,9 @@ void
 Controller::handle_javaScriptWindowObjectCleared ()
 {
   m_view.page () -> mainFrame ()
-    -> addToJavaScriptWindowObject ("Cubway", this);
+    -> addToJavaScriptWindowObject ("GUI", view());
+  m_view.page () -> mainFrame ()
+    -> addToJavaScriptWindowObject ("Modules", &m_moduleLoader);
   handle_aliases ();
 }
 

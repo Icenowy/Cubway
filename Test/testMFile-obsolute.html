@@ -5,8 +5,8 @@
   <meta name="subway_size" content="320x240" />
   <script type="text/javascript">
   function init(){
-	MFile = require.LoadModule("MFile");
-    	console.log(MFile.Read("/proc/cmdline"));
+	MFile = Modules.load("MFile");
+    	console.log(MFile.read("/proc/cmdline"));
   }
 
   </script>

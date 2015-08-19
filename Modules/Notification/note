@@ -1,1 +1,2 @@
 //UTF-8 characters transferring hasn't been supported yet. # Fixed by using code from Razor-Qt.
+Complie failed with Qt5 and GCC5.

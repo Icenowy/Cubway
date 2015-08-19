@@ -10,9 +10,10 @@
 #define _LIB_END ".so"
 #endif
 
-QObject* ModuleLoader::LoadModule(QString name)
+QObject* ModuleLoader::load(QString name)
 {
     if (name.endsWith(".js")) {
+	/* not implemented */
         return NULL;
     }
     if (isBuiltin(name)) {
@@ -51,14 +52,14 @@ QString ModuleLoader::getModulePath(QString mod)
 
 bool ModuleLoader::isBuiltin(QString name)
 {
-    if (name=="MFile")
+    if (name=="FileSystem")
         return true;
     return false;
 }
 
 QObject* ModuleLoader::getBuiltin(QString name)
 {
-    if (name=="MFile")
+    if (name=="FileSystem")
         return new MFile();
     return NULL;
 }

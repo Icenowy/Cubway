@@ -10,7 +10,7 @@ class DBusModule: public QObject
 {
     Q_OBJECT
 public slots:
-	QString Call(QString service, QString path, QString interface, QString method, QList<QVariant> args);
+	QString call(QString service, QString path, QString interface, QString method, QList<QVariant> args);
 };
 
 #endif //_MODULES_DBUS_H

@@ -1,27 +1,22 @@
 <html>
 <head>
-<meta name="subway_title" content="Notification Test" >
-<meta name="subway_size" content="320x240" >
-<meta name="subway_position" content="center" >
-<meta name="subway_init" content="init()" >
+<meta name="win_title" content="Notification Test" >
+<meta name="win_size" content="320x240" >
+<meta name="win_position" content="center" >
+<meta name="win_init" content="init()" >
 
 <script type="text/javascript">
 
 function init(){
-	Cubway.view.LinkFragment.connect(LinkHandle)
-	Notify = Cubway.require.LoadModule("Notification")
-	Notify.Send("Test","Notification","dialog-information")
+	Notify = Modules.load()("Notification")
+	Notify.send("Test","Notification","dialog-information")
 	iTitle=document.querySelector("#i_title")
 	iBody=document.querySelector("#i_body")
 	iIcon=document.querySelector("#i_icon")
 }
 
 function hit(){
-	Notify.Send(iTitle.value,iBody.value,iIcon.value)
-}
-
-function LinkHandle(_fragment){
-	if(_fragment=="Hit") hit()
+	Notify.send(iTitle.value,iBody.value,iIcon.value)
 }
 
 </script>
@@ -34,6 +29,6 @@ function LinkHandle(_fragment){
 <br/>
 <input id="i_icon" type="text" placeholder="Icon" value="dialog-information" />
 <br/>
-<a href="#Hit">Send</a>
+<button onclick="hit()">Send</button>
 </body>
 </html>

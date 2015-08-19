@@ -2,3 +2,5 @@ DBusModule - Note
 
 Error
 Unexpected reply signature: got "no signature", expected "s" (QString)
+
+Complie failed with Qt5 and GCC5.

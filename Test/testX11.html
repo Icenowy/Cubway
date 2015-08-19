@@ -1,14 +1,15 @@
+<!DOCTYPE html>
 <html>
 <head>
-<meta name="subway_title" content="X11Toolkit Test" >
-<meta name="subway_size" content="640x480" >
-<meta name="subway_position" content="center" >
-<meta name="subway_init" content="init()" >
+<meta name="win_title" content="X11Toolkit Test" >
+<meta name="win_size" content="640x480" >
+<meta name="win_position" content="center" >
+<meta name="init_script" content="init()" >
 <script type="text/javascript">
 var aList
 function getWinList(){
   aList=''
-  clients = X11.getClientList();
+  clients = X11.getClientList()
   for(var client in clients)
   {
 	aList=aList+"<div style=\"color:red\">" + X11.getWindowTitle(clients[client]) + "</div>"
@@ -16,7 +17,7 @@ function getWinList(){
   document.getElementById("result").innerHTML=aList
 }
 function init(){
-  X11 = Cubway.require.LoadModule("X11Toolkit");
+  X11 = Modules.load("X11Toolkit");
   var win = X11.getActiveWindow();
   //X11.moveWindowToDesktop(win,0);
   alert(X11.getWindowDesktop(win));

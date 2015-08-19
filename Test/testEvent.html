@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<meta name="win_title" content="Event Test" />
+<meta name="win_events" content="onResizeEvent onKeyPressEvent" >
+<meta name="init_script" content="init()" >
+<script type="text/javascript" >
+function init(){
+	Notify=Modules.load()("Notification");
+}
+function onResizeEvent(a,b,c,d)
+{
+	Notify.send("OnResize", a+","+b+","+c+","+d, "qt4logo");
+}
+function onKeyPressEvent(a)
+{
+	Notify.send("OnKeyPress", a, "qt4logo");
+}
+</script>
+</head>
+<body>
+</body>
+</html>

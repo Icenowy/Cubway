@@ -6,22 +6,12 @@
 #include <QFileInfo>
 #include <QDebug>
 //MetroFile
-bool MFile::Exists(QString file)
+bool MFile::exists(QString file)
 {
   return QFile::exists(file);
 }
 
-
-/*
-void MFile::DownLoad(QString url,QString tofile)
-{
-    QProcess *qp = new QProcess;
-    qp->start("wget",QStringList() << url << "-O" << tofile);
-}
-*/
-
-
-QString MFile::Read(QString file)
+QString MFile::read(QString file)
 {
   QFile f(file);
   if (!f.open(QFile::ReadOnly | QFile::Text)){
@@ -32,20 +22,8 @@ QString MFile::Read(QString file)
   return in.readAll();
 }
 
-
-void MFile::XdgOpen(QString file)
+QStringList MFile::list(QString dir)
 {
-  QProcess *qp = new QProcess;
-  QStringList Args;
-  Args << file;
-  qp -> start("xdg-open", Args);
-  return;
-}
-
-
-QStringList MFile::List(QString dir)
-{
-  // Mark: Need Add Arguments
   QDir directory(dir);
   return directory.entryList();
 }
