@@ -14,8 +14,8 @@ find_package(Qt5WebKit)
 find_package(Qt5WebKitWidgets)
 
 add_definitions("-DCUBWAY_DEBUG=1")
-# Tell CMake to create the helloworld executable
-add_executable(cubway main.cpp View.cpp Controller.cpp moduleloader.cpp MFile.cpp)
+# Tell CMake to create the executable
+add_executable(cubway main.cpp View.cpp Controller.cpp moduleloader.cpp FileSystem.cpp Process.cpp)
 
 # Use the Widgets module from Qt 5.
 target_link_libraries(cubway Qt5::Widgets Qt5::WebKit Qt5::WebKitWidgets)

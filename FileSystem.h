@@ -1,12 +1,12 @@
-#ifndef MFILE_H
-#define MFILE_H
+#ifndef FILESYSTEM_H
+#define FILESYSTEM_H
 
 #include <QObject>
 #include <QString>
 #include <QStringList>
 #include <QVariantMap>
 
-class MFile : public QObject
+class FileSystem : public QObject
 {
     Q_OBJECT
 public slots:

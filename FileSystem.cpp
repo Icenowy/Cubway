@@ -1,17 +1,16 @@
-#include "MFile.h"
-#include <QProcess>
+#include "FileSystem.h"
 #include <QDir>
 #include <QString>
 #include <QStringList>
 #include <QFileInfo>
 #include <QDebug>
-//MetroFile
-bool MFile::exists(QString file)
+
+bool FileSystem::exists(QString file)
 {
   return QFile::exists(file);
 }
 
-QString MFile::read(QString file)
+QString FileSystem::read(QString file)
 {
   QFile f(file);
   if (!f.open(QFile::ReadOnly | QFile::Text)){
@@ -22,7 +21,7 @@ QString MFile::read(QString file)
   return in.readAll();
 }
 
-QStringList MFile::list(QString dir)
+QStringList FileSystem::list(QString dir)
 {
   QDir directory(dir);
   return directory.entryList();
@@ -31,7 +30,7 @@ QStringList MFile::list(QString dir)
 
 // 計劃中
 /*
-QVariantMap MFile::InfoList(QString dir)
+QVariantMap FileSystem::InfoList(QString dir)
 {
   directory.entryInfoList();
 }

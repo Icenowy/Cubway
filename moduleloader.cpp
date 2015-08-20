@@ -2,7 +2,8 @@
 #include <QPluginLoader>
 #include <QDebug>
 // Builtins 
-#include "MFile.h"
+#include "FileSystem.h"
+#include "Process.h"
 
 #if defined(Q_OS_WIN32)
 #define _LIB_END ".dll"
@@ -52,15 +53,19 @@ QString ModuleLoader::getModulePath(QString mod)
 
 bool ModuleLoader::isBuiltin(QString name)
 {
-    if (name=="FileSystem")
+    if (name == "FileSystem")
         return true;
+    else if (name == "Process")
+      return true;
     return false;
 }
 
 QObject* ModuleLoader::getBuiltin(QString name)
 {
-    if (name=="FileSystem")
-        return new MFile();
+    if (name == "FileSystem")
+        return new FileSystem();
+    else if (name == "Process")
+        return new Process();
     return NULL;
 }
 

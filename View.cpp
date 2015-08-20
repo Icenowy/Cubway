@@ -146,21 +146,6 @@ void View::HandleMetaData(){
     show();
 }
 
-QString View::getArg(int n)
-{
-  if(n > QApplication::arguments().length()-1 || n < 0){
-    page() -> mainFrame() -> evaluateJavaScript("throw \"GetArg: No such argument\"");
-    return "";
-  }else{
-    return  QApplication::arguments()[n];
-  }
-}
-
-int View::getArgsLen()
-{
-  return  QApplication::arguments().length();
-}
-
 void View::echo(QString str)
 {
   qDebug()<<str;

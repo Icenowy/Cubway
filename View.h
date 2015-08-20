@@ -57,8 +57,6 @@ private:
     QScopedPointer<QDir> settingsDir;
 public slots:
     void HandleMetaData();
-    QString getArg(int n);
-    int getArgsLen();
     void msgbox(QString title, QString content);
     void echo(QString str);
     QString fileDialog(QString dir, QString filters);
