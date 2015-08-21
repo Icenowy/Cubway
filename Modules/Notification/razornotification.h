@@ -25,7 +25,8 @@
 #ifndef RAZORNOTIFICATION_H
 #define RAZORNOTIFICATION_H
 
-#include <QtCore/QStringList>
+#include <QtCore>
+#include <QStringList>
 
 class RazorNotificationPrivate;
 

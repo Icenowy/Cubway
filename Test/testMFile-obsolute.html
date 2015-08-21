@@ -3,14 +3,15 @@
 <head>
   <meta name="subway_title" content="MFile test" />
   <meta name="subway_size" content="320x240" />
+  <meta name="init_script" content="init()" />
   <script type="text/javascript">
   function init(){
-	MFile = Modules.load("MFile");
-    	console.log(MFile.read("/proc/cmdline"));
+	FS = Modules.load("FileSystem");
+    	document.write(FS.read("/proc/cmdline"));
   }
 
   </script>
 </head>
-<body onload="init()">
+<body>
 </body>
 </html>

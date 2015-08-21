@@ -13,4 +13,4 @@ QString DBusModule::call(QString service, QString path, QString interface, QStri
 }
 
 
-Q_EXPORT_PLUGIN2(DBus, DBusModule)
+// Q_EXPORT_PLUGIN2(DBus, DBusModule)

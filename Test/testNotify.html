@@ -3,12 +3,12 @@
 <meta name="win_title" content="Notification Test" >
 <meta name="win_size" content="320x240" >
 <meta name="win_position" content="center" >
-<meta name="win_init" content="init()" >
+<meta name="init_script" content="init()" >
 
 <script type="text/javascript">
 
 function init(){
-	Notify = Modules.load()("Notification")
+	Notify = Modules.load("Notification")
 	Notify.send("Test","Notification","dialog-information")
 	iTitle=document.querySelector("#i_title")
 	iBody=document.querySelector("#i_body")
