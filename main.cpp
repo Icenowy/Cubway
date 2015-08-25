@@ -1,8 +1,4 @@
 #include <QApplication>
-#include <QDesktopWidget>
-
-#include <QWebInspector>
-
 #include "Controller.h"
 
 int main(int argc, char *argv[])

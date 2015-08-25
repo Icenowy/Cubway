@@ -8,8 +8,11 @@ class Process : public QObject
 {
   Q_OBJECT
   Q_PROPERTY(QStringList argv READ getArgv)
-  public slots:
+  Q_PROPERTY(QString platform READ getPlatform)
+  public:
     QStringList getArgv();
+    QString getPlatform();
+    Q_INVOKABLE QString getEnv(QString name);
 };
 
 #endif
