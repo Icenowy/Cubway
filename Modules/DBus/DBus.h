@@ -10,7 +10,7 @@
 class DBusModule: public QObject
 {
     Q_OBJECT
-    Q_PLUGIN_METADATA(IID "org.subway.Cubway.Notification")
+    Q_PLUGIN_METADATA(IID "org.subway.Cubway.DBus")
 public slots:
 	QString call(QString service, QString path, QString interface, QString method, QList<QVariant> args);
 };
