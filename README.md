@@ -5,6 +5,8 @@ Unlike other similar projects such as NW.js and Electron, it works without a Nod
 
 Being a part of the Subway Project, this project focuses more on (GNU/Linux) desktop integration.
 
+It is still under development and lack feature.
+
 For details, see [wiki](https://github.com/Icenowy/Cubway/wiki).
 
 ## TODO
