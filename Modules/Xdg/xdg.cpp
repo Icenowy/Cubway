@@ -51,11 +51,15 @@ QVariantMap XdgModule::loadDesktopFile(const QString &fileName){
   result["name"] = desktop.name();
   result["comment"] = desktop.comment();
   QString url = desktop.url();
-  QVariant exec = desktop.value("exec");
+  QVariant exec = desktop.value("Exec");
+  QVariant no_display = desktop.value("NoDisplay");
   if(!url.isEmpty())
     result["url"] = url;
   if(exec.isValid())
     result["exec"] = exec;
+  if(no_display.isValid())
+    result["no_display"] = no_display;
+
   return result;
 }
 
