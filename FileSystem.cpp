@@ -24,15 +24,6 @@ QString FileSystem::read(QString file)
 QStringList FileSystem::list(QString dir)
 {
   QDir directory(dir);
-  return directory.entryList();
+  return directory.entryList(QDir::AllEntries | QDir::NoDotAndDotDot);
 }
-
-
-// 計劃中
-/*
-QVariantMap FileSystem::InfoList(QString dir)
-{
-  directory.entryInfoList();
-}
-*/
 

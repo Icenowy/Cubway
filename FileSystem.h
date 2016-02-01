@@ -9,10 +9,10 @@
 class FileSystem : public QObject
 {
     Q_OBJECT
-public slots:
-    bool exists(QString file);
-    QString read(QString file);
-    QStringList list(QString dir);
+public:
+    Q_INVOKABLE bool exists(QString file);
+    Q_INVOKABLE QString read(QString file);
+    Q_INVOKABLE QStringList list(QString dir);
 };
 
 #endif
