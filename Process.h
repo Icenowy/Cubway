@@ -13,6 +13,7 @@ class Process : public QObject
     QStringList getArgv();
     QString getPlatform();
     Q_INVOKABLE QString getEnv(QString name);
+    Q_INVOKABLE QObject* exec(QString cmd, QStringList args = QStringList());
 };
 
 #endif

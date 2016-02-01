@@ -1,5 +1,6 @@
 #include <cstdlib>
 #include <QApplication>
+#include <QProcess>
 #include "Process.h"
 
 
@@ -28,3 +29,10 @@ QString Process::getEnv(QString name)
   return getenv(name.toStdString().c_str());
 }
 
+
+QObject* Process::exec(QString cmd, QStringList args)
+{
+  QProcess *p = new QProcess;
+  p->start(cmd, args);
+  return p;
+}
