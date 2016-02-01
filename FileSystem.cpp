@@ -10,6 +10,12 @@ bool FileSystem::exists(QString file)
   return QFile::exists(file);
 }
 
+bool FileSystem::isDir(QString file)
+{
+  QFileInfo f(file);
+  return f.isDir();
+}
+
 QString FileSystem::read(QString file)
 {
   QFile f(file);

@@ -11,6 +11,7 @@ class FileSystem : public QObject
     Q_OBJECT
 public:
     Q_INVOKABLE bool exists(QString file);
+    Q_INVOKABLE bool isDir(QString file);
     Q_INVOKABLE QString read(QString file);
     Q_INVOKABLE QStringList list(QString dir);
 };
