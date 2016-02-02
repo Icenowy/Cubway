@@ -2,6 +2,7 @@
 #define MODULELOADER_H
 
 #include <QObject>
+#include <QApplication>
 #include <QDir>
 #include <QString>
 #include <QHash>
@@ -11,7 +12,7 @@ class ModuleLoader : public QObject
     Q_OBJECT
 public:
     ModuleLoader()
-      : _dirModule(QDir::current().filePath("Modules"))
+      : _dirModule(QDir(QApplication::applicationDirPath()).filePath("Modules"))
     {}
     Q_INVOKABLE QObject* load(QString name);
 private:
