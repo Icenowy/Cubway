@@ -36,3 +36,9 @@ QObject* Process::exec(QString cmd, QStringList args)
   p->start(cmd, args);
   return p;
 }
+
+
+bool Process::execDetached(QString cmd, QStringList args)
+{
+  return QProcess::startDetached(cmd, args);
+}
