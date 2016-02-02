@@ -42,3 +42,9 @@ bool Process::execDetached(QString cmd, QStringList args)
 {
   return QProcess::startDetached(cmd, args);
 }
+
+
+void Process::quit()
+{
+  exit(0);
+}
