@@ -5,7 +5,7 @@
 #include <QDBusAbstractAdaptor>
 
 
-void createInterface(QString app_name, QWidget *view);
+void createInterface(QString service_name, QWidget *view);
 
 
 class Adaptor : public QDBusAbstractAdaptor {
