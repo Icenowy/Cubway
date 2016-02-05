@@ -17,8 +17,9 @@
 #include <QFileInfo>
 #include <QTextStream>
 
-#include "View.h"
 #include "moduleloader.h"
+#include "DBusInterface.h"
+#include "View.h"
 
 CUBWAY_NS_BEGIN
 
@@ -125,6 +126,10 @@ void View::HandleMetaData(){
 	this->page()->mainFrame()->setScrollBarPolicy(Qt::Horizontal, val);
       }
     }
+  }
+  /* DBus Interface */
+  if(MetaData.contains("dbus_service_name")){
+    createInterface(MetaData.values("dbus_service_name").at(0), Mainview);
   }
   /* Events */
   if(MetaData.contains("win_events")){
