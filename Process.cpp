@@ -44,7 +44,7 @@ bool Process::execDetached(QString cmd, QStringList args)
 }
 
 
-void Process::quit()
+void Process::exit(int return_value)
 {
-  exit(0);
+  exit(return_value);
 }
