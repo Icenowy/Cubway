@@ -38,9 +38,9 @@ QObject* Process::exec(QString cmd, QStringList args)
 }
 
 
-bool Process::execDetached(QString cmd, QStringList args)
+bool Process::execDetached(QString cmd, QStringList args, QString dir)
 {
-  return QProcess::startDetached(cmd, args);
+  return QProcess::startDetached(cmd, args, dir);
 }
 
 

@@ -14,7 +14,7 @@ class Process : public QObject
     QString getPlatform();
     Q_INVOKABLE QString getEnv(QString name);
     Q_INVOKABLE QObject* exec(QString cmd, QStringList args = QStringList());
-    Q_INVOKABLE bool execDetached(QString cmd, QStringList args = QStringList());
+    Q_INVOKABLE bool execDetached(QString cmd, QStringList args = QStringList(), QString dir = QString());
     Q_INVOKABLE void exit(int return_value);
 };
 
