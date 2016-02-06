@@ -36,6 +36,7 @@ View::View(QWidget *parent)
       this->appFile.reset(new QFile(QApplication::arguments()[1]));
       QFileInfo file_info(*this->appFile);
       this->appDirPath = file_info.absoluteDir().path();
+      QDir::setCurrent(this->appDirPath);
       load(QUrl::fromLocalFile(file_info.absoluteFilePath()));
     }
 
