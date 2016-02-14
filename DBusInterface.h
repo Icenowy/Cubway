@@ -10,7 +10,7 @@ void createInterface(QString service_name, QWidget *view);
 
 class Adaptor : public QDBusAbstractAdaptor {
     Q_OBJECT
-    Q_CLASSINFO("D-Bus Interface", "org.subway.cubway")
+    Q_CLASSINFO("D-Bus Interface", "org.subwaydesktop.cubway")
 private:
     QWidget *view;
 public:
