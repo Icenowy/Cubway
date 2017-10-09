@@ -17,6 +17,7 @@ public:
     Adaptor(QWidget *view);
 public slots:
     void toggleVisible();
+    void activateWindow();
 };
 
 

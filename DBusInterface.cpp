@@ -3,7 +3,7 @@
 #include <QWidget>
 
 
-void createInterface(QString service_name, QWidget *view){
+void createInterface(QString service_name, QWidget *view) {
   new Adaptor(view);
   QDBusConnection con = QDBusConnection::sessionBus();
   con.registerObject("/view", view);
@@ -16,7 +16,12 @@ Adaptor::Adaptor(QWidget *view): QDBusAbstractAdaptor(view) {
 }
 
 
-void Adaptor::toggleVisible(){
+void Adaptor::toggleVisible() {
   view->setVisible(!view->isVisible());
+}
+
+
+void Adaptor::activateWindow() {
+  view->activateWindow();
 }
 
