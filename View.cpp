@@ -129,11 +129,11 @@ void View::HandleMetaData() {
     }
   }
   /* Frameless */
-  if(MetaData.contains("frameless")) {
+  if(MetaData.contains("win_frameless")) {
     setWindowFlags(Qt::FramelessWindowHint);
   }
   /* Transparent Background */
-  if(MetaData.contains("transparent")) {
+  if(MetaData.contains("win_transparent")) {
     // copy and paste code from Internet
     QPalette pal = palette();
     pal.setBrush(QPalette::Base, Qt::transparent);
