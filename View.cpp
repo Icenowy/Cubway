@@ -68,7 +68,7 @@ void View::doWebSettings()
     defaultSettings->setObjectCacheCapacities(0, 0, 0); 
 }
 
-void View::HandleMetaData(){
+void View::HandleMetaData() {
   /* Get data */
   MetaData = page()->mainFrame()->metaData();
 
@@ -78,7 +78,7 @@ void View::HandleMetaData(){
   else
     setWindowTitle(page()->mainFrame()->title());
   /* Size */
-  if(MetaData.contains("win_size")){
+  if(MetaData.contains("win_size")) {
     QString tmp_size = MetaData.values("win_size").at(0);
     if(tmp_size=="auto"){
       resize(this->page()->mainFrame()->contentsSize());
@@ -88,21 +88,21 @@ void View::HandleMetaData(){
         resize(sizeXY[0].toInt(),sizeXY[1].toInt());
     }
   }
-  if(MetaData.contains("win_fixed")){
+  if(MetaData.contains("win_fixed")) {
     setFixedSize(this->size());
   }
-  if(MetaData.contains("win_fullscreen")){
+  if(MetaData.contains("win_fullscreen")) {
     showFullScreen();
   }
   /* Position */
-  if(MetaData.contains("win_position")){
+  if(MetaData.contains("win_position")) {
     QString tmp_pos = MetaData.values("win_position").at(0);
     if(tmp_pos == "center")
       winCenter();
     // elif Set by settings or last
   }
   /* Flag */
-  if(MetaData.contains("win_flag")){
+  if(MetaData.contains("win_flag")) {
     QStringList tmp_flag = MetaData.values("win_flag");
     if(tmp_flag[0] == "below")
       setWindowFlags(this->windowFlags() | Qt::WindowStaysOnBottomHint);
@@ -110,13 +110,13 @@ void View::HandleMetaData(){
       setWindowFlags(this->windowFlags() | Qt::WindowStaysOnTopHint);
   }
   /* Scrollbar */
-  if(MetaData.contains("win_scrollbar")){
+  if(MetaData.contains("win_scrollbar")) {
     QStringList tmp_scroll = MetaData.values("win_scrollbar");
     for(int i=0; i<tmp_scroll.size(); i++){
       Qt::ScrollBarPolicy val;
-      if(tmp_scroll[i] == "AlwaysOn"){
+      if(tmp_scroll[i] == "AlwaysOn") {
 	val = Qt::ScrollBarAlwaysOn;
-      }else if(tmp_scroll[i] == "AlwaysOff"){
+      }else if(tmp_scroll[i] == "AlwaysOff") {
 	val = Qt::ScrollBarAlwaysOff;
       }else{
 	val = Qt::ScrollBarAsNeeded;
@@ -128,12 +128,26 @@ void View::HandleMetaData(){
       }
     }
   }
+  /* Frameless */
+  if(MetaData.contains("frameless")) {
+    setWindowFlags(Qt::FramelessWindowHint);
+  }
+  /* Transparent Background */
+  if(MetaData.contains("transparent")) {
+    // copy and paste code from Internet
+    QPalette pal = palette();
+    pal.setBrush(QPalette::Base, Qt::transparent);
+    page()->setPalette(pal);
+    setAttribute(Qt::WA_OpaquePaintEvent, false);
+    setAttribute(Qt::WA_TranslucentBackground);
+    setStyleSheet("background:transparent");
+  }
   /* DBus Interface */
-  if(MetaData.contains("dbus_service_name")){
+  if(MetaData.contains("dbus_service_name")) {
     createInterface(MetaData.values("dbus_service_name").at(0), Mainview);
   }
   /* Events */
-  if(MetaData.contains("win_events")){
+  if(MetaData.contains("win_events")) {
     QStringList tmp_events = MetaData.values("win_events").at(0).split(" ");
     for(int i=0; i<tmp_events.size(); i++)
       EventsEnabled[tmp_events[i]] = true;
